@@ -3,18 +3,15 @@
         <!-- Breadcrumb -->
         <ol class="breadcrumb col-lg-12">
             <li class="breadcrumb-item"><a href="/principal">Tablero</a></li>
-            <li class="breadcrumb-item"><a @click="menu=5" href="#">Proyectos</a></li>
-            <li class="breadcrumb-item">Administrador</li>
+            <li class="breadcrumb-item"><a @click="menu=12" href="#">Proyectos</a></li>
+            <li class="breadcrumb-item">Director de proyecto</li>
         </ol>
         <div class="container-fluid">
             <div class="card">
                 <div class="card-header">
                     <i class="fa fa-suitcase"></i>&nbsp;&nbsp;Proyectos&nbsp;
-                    <button type="button" @click="abrirModal('proyecto','registrar',0)" class="btn btn-secondary float-right">
-                        <i class="fa fa-plus"></i>&nbsp;Nuevo
-                    </button>
-                     <button type="button" @click="menu=15" class="btn btn-secondary float-right">
-                        <i class="fa fa-plus"></i>&nbsp;Ver Programadores Todos Los proyectos
+                     <button type="button" @click="menu=14" class="btn btn-secondary float-right">
+                        <i class="fa fa-plus"></i>&nbsp;Ver Programadores
                     </button>
                 </div>
                 <div class="card-body">
@@ -47,20 +44,14 @@
                         <tbody>
                             <tr v-for="proyecto in arrayProyecto" :key="proyecto.id">
                                 <td>
-
                                     <template v-if="proyecto.estado == 'inicializado'">
-                                     <button type="button" @click="abrirModal('proyecto','actualizar',proyecto,proyecto.id)" class="btn btn-warning btn-sm">
-                                        <i class="fas fa-pen"></i>
-                                    </button> &nbsp;
-                                    <button type="button" @click="abrirModal('proyecto','add',proyecto,proyecto.id)" class="btn btn-warning btn-sm">
+                                     <button type="button" @click="abrirModal('proyecto','registrar',proyecto,proyecto.id)" class="btn btn-warning btn-sm">
                                         <i class="fas fa-plus"></i>
                                     </button> &nbsp;
                                         <button type="button" class="btn btn-danger btn-sm" @click="desactivarProyecto(proyecto.id)">
                                             <i class="far fa-eye-slash"></i>
                                         </button>
                                     </template>
-
-
 
                                 </td>
                                 <td v-text="proyecto.titulo"></td>
@@ -88,15 +79,15 @@
                     </nav>
                 </div>
             </div>
-            <!-- Fin de Listado Usuarios -->
+            <!-- Fin de Listado -->
 
-            <template style="margin-top:10px;" v-if="menu==15">
-                <proyectotodos-component></proyectotodos-component>
+
+            <template style="margin-top:10px;" v-if="menu==14">
+                <proyectointegrantes-component></proyectointegrantes-component>
             </template>
 
-
         </div>
-        <!--Inicio del modal agregar/actualizar-->
+        <!--Inicio del modal agregar-->
         <div class="modal fade" tabindex="-1" :class="{'mostrar' : modal}" role="dialog" aria-labelledby="myModalLabel"
             style="display: none; overflow-y: scroll; padding-top: 55px;" aria-hidden="true">
             <div class="modal-dialog modal-primary modal-lg" role="document">
@@ -108,65 +99,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form v-if="tipoAccion != 3" action="" method="post" enctype="multipart/form-data" class="form-horizontal">
-                            <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">Titulo</label>
-                                <div class="col-md-9">
-                                    <input type="text" v-model="titulo" class="form-control"
-                                        placeholder="Ingrese el titulo del proyecto">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">Cliente</label>
-                                <div class="col-md-9">
-                                   <select class="form-control" v-model="id_cliente">
-                                        <option value="0">Seleccione una opción: </option>
-                                        <option v-for="cliente in arrayCliente" :key="cliente.id" :value="cliente.id" v-text="cliente.nombre">
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">Proyect Manager <b>(*)</b></label>
-                                <div class="col-md-9">
-                                    <select class="form-control" v-model="id_manager">
-                                        <option value="0">Seleccione una opción: </option>
-                                        <option v-for="manager in arrayManager" :key="manager.id" :value="manager.id" v-text="manager.nombre"></option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">Fecha Inicio<b>(*)</b></label>
-                                <div class="col-md-9">
-
-                                    <input type="date" v-model="fecha_inicio" class="form-control"
-                                        placeholder="Ingrese la fecha de inicio" min="<?php echo $fecha = date()?>" >
-
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">Fecha Final<b>(*)</b></label>
-                                <div class="col-md-9">
-
-                                    <input type="date" v-model="fecha_final   " class="form-control"
-                                        placeholder="Ingrese la fecha de fin "   min="<?php echo $fecha = date()?>" >
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">Descripcion <b>(*)</b></label>
-                                <div class="col-md-9">
-                                    <input type="text" v-model="descripcion" class="form-control"
-                                        placeholder="Ingrese la descripcion">
-                                </div>
-                            </div>
-                            <div v-show="errorProyecto" class="form-group row div-error">
-                                <div class="text-center text-error">
-                                    <div v-for="error in errorMostrarMsjProyecto" :key="error" v-text="error"></div>
-                                </div>
-                            </div>
-                        </form>
-
-                         <form v-else action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+                        <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
                             <div class="form-group row">
                                 <label class="col-md-3 form-control-label" for="text-input">Rol</label>
                                 <div class="col-md-9">
@@ -215,9 +148,8 @@
                     <div class="modal-footer">
                         <span><b>(*)</b>&nbsp;Campo obligatorio de ingresar</span>
                         <button type="button" class="btn btn-secondary" @click="cerrarModal()">Cerrar</button>
-                        <button type="button" v-if="tipoAccion==1" class="btn btn-success" @click="registrarProyecto()">Guardar</button>
-                        <button type="button" v-if="tipoAccion==2" class="btn btn-warning" @click="actualizarProyecto()">Actualizar</button>
-                        <button type="button" v-if="tipoAccion==3" class="btn btn-success" @click="miembrosProyecto()">Agregar</button>
+                        <button type="button" v-if="tipoAccion==1" class="btn btn-success" @click="miembrosProyecto()">Agregar</button>
+
                     </div>
                 </div>
                 <!-- /.modal-content -->
@@ -233,22 +165,17 @@
         //Propiedad 'data' de javascript donde se declaran las variables necesarias para el funcionamiento del modulo 'categorias', dentro de estas variables tenemos las encargadas de la paginacion, del crud, de la busqueda de registros y del activado y desactivado de la cliente
         data() {
             return {
-                id_proyecto: 0,
+
                 titulo: '',
-                menu:0,
-                id_manager:0,
-                descripcion: '',
-                fecha_inicio: '',
-                fecha_final: '',
-                id_cliente: 0,
+                id:0,
                 id_programador:0,
-                arrayProgramador:[],
-                 rol:'',
+                rol:'',
                 cantidad:0,
                 tipo_pago:'',
+
                 arrayProyecto: [],
-                arrayManager: [],
-                arrayCliente: [],
+                arrayProgramador:[],
+                menu:0,
                 modal: 0,
                 tituloModal: '',
                 tipoAccion: 0,
@@ -302,7 +229,7 @@
             listarProyecto(page,buscar,criterio) {
                 let me = this;
                 //Se le asigna a la ruta '/cliente' los parametros 'buscar' y 'criterio' mediante el metodo get que se utiliza para buscar un registro de acuerdo a lo que ha ingresado el usuario en el input para buscar
-                var url = '/proyecto?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
+                var url = '/proyecto/proyectomanager?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
                 axios.get(url).then(function (response) {
                     //Se crea una variable respuesta que guardara los datos de la consulta mediante ajax
                     var respuesta = response.data;
@@ -316,35 +243,7 @@
                 });
             },
 
-            //Método para llenar un select con los datos de la tabla rol, mostrando solo aquellos que estan activados
-            selectCliente() {
-                let me = this;
-                //Se le asigna la ruta al controlador que realiza la peticion al modelo para recopilar todos los roles
-                var url = '/usuario/selectCliente';
-                axios.get(url).then(function (response) {
-                    //Se crea una variable respuesta que guardara los datos de la consulta mediante ajax
-                    var respuesta = response.data;
-                    //Guarda los datos en el arreglo 'arrayRol'
-                    me.arrayCliente = respuesta.cliente;
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
-            },
-             selectManager() {
-                let me = this;
-                //Se le asigna la ruta al controlador que realiza la peticion al modelo para recopilar todos los roles
-                var url = '/usuario/selectManager';
-                axios.get(url).then(function (response) {
-                    //Se crea una variable respuesta que guardara los datos de la consulta mediante ajax
-                    var respuesta = response.data;
-                    //Guarda los datos en el arreglo 'arrayRol'
-                    me.arrayManager = respuesta.manager;
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
-            },
+
             //Metodo para mostrar una determinada pagina y los registros asignados a ella
             cambiarPagina(page,buscar,criterio){
                 let me = this;
@@ -353,68 +252,7 @@
                 //Envia la peticion para visualizar los datos de esa pagina
                 me.listarProyecto(page,buscar,criterio);
             },
-            //Método para registrar una categoria a la base de datos
-            registrarProyecto() {
-                //Verifica que el método 'verificarCategoria' haya devuelto un valor, en ese caso, no se realiza ninguna tarea hasta que esto no sea cierto
-                if (this.validarProyecto()) {
-                    return;
-                }
-                let me = this;
-                //Mediante axios se hace una peticion mediante ajax gracias a la ruta '/categoria/registrar' para llamar al controlador y ejecutar la tarea correspondiente
-                axios.post('/proyecto/registrar',{
-                    //Se le asignan los valores recopilados de los inputs del modal
-                    'titulo': this.titulo,
-                    'id_cliente': this.id_cliente,
-                    'id_manager': this.id_manager,
-                    'descripcion': this.descripcion,
-                    'fecha_inicio': this.fecha_inicio,
-                    'fecha_final': this.fecha_final
-                }).then(function (response) {
-                    //Se llama al metodo 'cerrarModal' para ocultarlo y se vuelve a enlistar las categorias de forma descendente, es decir, el registro recien ingresado sera el primero
-                    me.cerrarModal();
-                    me.listarProyecto(1,'','titulo');
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
-            },
-            //Método para actualizar un registro de la tabla 'persona'
-            actualizarProyecto() {
-                //Verifica que el método 'verificarCategoria' haya devuelto un valor, en ese caso, se muestran los errores al usuario que son arrojados debido a que algun campo obligatorio esta vacio
-                if (this.validarProyecto()) {
-                    return;
-                }
-                let me = this;
-                //Mediante axios se hace una peticion mediante ajax gracias a la ruta '/categoria/actualizar' para llamar al controlador y ejecutar la tarea correspondiente
-                axios.put('/proyecto/actualizar',{
-                    //Se le asignan los valores recopilados de los inputs del modal
-                     'titulo': this.titulo,
-                    'id_cliente': this.id_cliente,
-                    'id_manager': this.id_manager,
-                    'descripcion': this.descripcion,
-                    'fecha_inicio': this.fecha_inicio,
-                    'fecha_final': this.fecha_final,
-                    'id': this.id_proyecto
-                }).then(function (response) {
-                    //Se llama al metodo 'cerrarModal' para ocultarlo y se vuelve a enlistar las categorias de forma descendente, es decir, el registro recien ingresado sera el primero
-                    me.cerrarModal();
-                    me.listarProyecto(1,'','titulo');
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
-            },
-            //Método que sirve para mostrar en el modal errores cuando el usuario no ingresa texto en el input mediante el uso de un array del apartado de estilos
-            validarProyecto() {
-                this.errorProyecto = 0;
-                this.errorMostrarMsjProyecto = [];
-                if (!this.titulo) this.errorMostrarMsjProyecto.push("El   titulo del proyecto no puede estar vacío.");
-                if (!this.fecha_inicio) this.errorMostrarMsjProyecto.push("   fecha vacia");
-                if (!this.fecha_final) this.errorMostrarMsjProyecto.push("   fecha  final vacia ");
 
-                if (this.errorMostrarMsjProyecto.length) this.errorProyecto = 1;
-                return this.errorProyecto;
-            },
             //Método que sirve para mostrar el modal para guardar/actualizar un proveedor, en este se tiene 2 switch donde se hace uso del modelo correspondiente y la acción, se hace de esta manera debido a que se utiliza el mismo modal para ambas tareas mas sin embargo, los datos que se mandan al controlador son diferentes
             abrirModal(modelo, accion, data = [],id) {
                 switch (modelo) {
@@ -424,40 +262,10 @@
                             case 'registrar':
                             {
                                 this.modal = 1;
-                                this.tituloModal = 'Registrar proyecto';
-                                this.tipoAccion = 1;
-                                this.titulo = '';
-                                this.id_cliente=0;
-                                this.id_manager=0;
-                                this.descripcion='';
-                                this.fecha_final='';
-                                this.fecha_inicio='';
-                                break;
-                            }
-                            case 'actualizar':
-                            {
-                                this.modal = 1;
-                                this.tituloModal = 'Actualizar proyecto';
-                                this.tipoAccion = 2;
-                                this.id_manager = data['id_manager'];
-                                this.id_cliente= data['id_cliente'];
-
-                                this.titulo = data['titulo'];
-                                this.descripcion  = data['descripcion'];
-                              this.fecha_final = data['fecha_final'];
-                                this.fecha_inicio=data['fecha_inicio'];
-
-                                this.id_proyecto=data['id'];
-
-                                break;
-                            }
-                             case 'add':
-                            {
-                                this.modal = 1;
                                 this.id = id;
                                 this.tituloModal = 'Registrar miembros de proyecto';
-                                this.tipoAccion = 3;
-
+                                this.tipoAccion = 1;
+                                this.titulo = '';
                                 this.rol = '';
                                 this.tipo_pago ='';
                                 this.cantidad = 0;
@@ -465,23 +273,18 @@
 
                                 break;
                             }
+
                         }
                     }
                 }
-                this.selectCliente();
-                this.selectManager();
                 this.selectProgramador();
+
             },
             //Método que sirve para ocultar el modal una vez se pulsa sobre alguno de los 2 botones para cerrarlo
             cerrarModal() {
                 this.modal = 0;
                 this.tituloModal = '';
-                 this.titulo = '';
-                                this.id_cliente=0;
-                                this.id_manager=0;
-                                this.descripcion='';
-                                this.fecha_final='';
-                                this.fecha_inicio='';
+                this.titulo = '';
                                 this.id_proyecto=0;
                                 this.id_manager=0;
                                 this.tipo_pago ='';
