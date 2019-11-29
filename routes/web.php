@@ -52,6 +52,12 @@ Route::group(['middleware' => ['auth']], function () {
         Route::put('/metodoPago/desactivar','MetodoPagoController@desactivar');
         Route::put('/metodoPago/activar','MetodoPagoController@activar');
 
+      //aceptar
+      Route::get('/retiro','GastosController@vistaaprobar');
+      Route::put('/retiro/aceptar','GastosController@aceptar');
+      Route::put('/retiro/rechazar','GastosController@rechazar');
+      Route::put('/retiro/cambio','GastosController@change');
+     
     });
     //Rutas para el usuario 'Director de Proyecto'
     Route::group(['middleware' => ['DirectorProyecto']], function () {
@@ -60,11 +66,20 @@ Route::group(['middleware' => ['auth']], function () {
        Route::get('/usuario/selectProgramador','UserController@selectProgramador');
       Route::post('/miembrosProyecto/agregar','ProyectoMiembroController@store');
       Route::get('/miembrosProyecto','ProyectoMiembroController@index');
+      Route::get('/retiro/programador','GastosController@index');
+      Route::post('/retiro/agregar','GastosController@store');
+      Route::get('/metodo/selectMetodoPago','MetodoPagoController@selectMetodoPago');
+      Route::get('/proyecto/selectProyectoManager','ProyectoController@selectProyectoManager');
+      
+      
     });
     //Rutas para el usuario 'Programador'
     Route::group(['middleware' => ['Programador']], function () {
-
-Route::get('/proyecto/proyectoprogramador','ProyectoController@proyectosProgramador');
+      Route::get('/retiro/programador','GastosController@index');
+      Route::post('/retiro/agregar','GastosController@store');
+      Route::get('/metodo/selectMetodoPago','MetodoPagoController@selectMetodoPago');
+      Route::get('/proyecto/selectProyecto','ProyectoController@selectProyecto');
+      Route::get('/proyecto/proyectoprogramador','ProyectoController@proyectosProgramador');
     });
     //Rutas para el usuario 'Cliente'
     Route::group(['middleware' => ['Cliente']], function () {
