@@ -72,13 +72,6 @@
           <span>Movimientos</span>
         </a>
       </li>
-      <!-- Nav Item - Usuarios -->
-      <li @click="menu=9" class="nav-item">
-        <a class="nav-link" href="#">
-          <i class="fas fa-fw fa-user"></i>
-          <span>Usuarios</span>
-        </a>
-      </li>
       <li @click="menu=20" class="nav-item">
             <a class="nav-link" href="#">
               <i class="fas fa-fw fa-money-check"></i>
@@ -86,7 +79,7 @@
             </a>
           </li>
           <!-- Nav Item - Usuarios -->
-      <li @click="menu=10" class="nav-item">
+      <li @click="menu=40" class="nav-item">
         <a class="nav-link" href="#">
           <i class="fas fa-fw fa-map-marker"></i>
           <span>Sitio</span>

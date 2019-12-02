@@ -63,9 +63,6 @@
         <template v-if="menu==3">
             <h1>D_Proyecto / 3</h1>
         </template>
-        <template v-if="menu==4">
-            <h1>D_Proyecto / 4</h1>
-        </template>
         <template v-if="menu==30">
             <problemasdp-component></problemasdp-component>
         </template>
@@ -78,10 +75,7 @@
         <template v-if="menu==7">
             <h1>D_Proyecto / 7</h1>
         </template>
-        <template v-if="menu==8">
-            <usuario-component></usuario-component>
-        </template>
-        <template v-if="menu==10">
+        <template v-if="menu==40">
             <sitio-component></sitio-component>
         </template>
         <template v-if="menu==20">
@@ -101,23 +95,17 @@
         <template v-if="menu==3">
             <h1>Programador / 3</h1>
         </template>
-        <template v-if="menu==4">
-            <h1>Programador / 4</h1>
-        </template>
         <template v-if="menu==31">
             <problemaspg-component></problemaspg-component>
         </template>
         <template v-if="menu==10">
              <proyectoprogramador-component></proyectoprogramador-component>
         </template>
-        <template v-if="menu==6">
-            <h1>Programador / 6</h1>
-        </template>
         <template v-if="menu==7">
             <h1>Programador / 7</h1>
         </template>
         <template v-if="menu==8">
-            <usuario-component></usuario-component>
+            <h1>Programador / 8</h1>
         </template>
         <template v-if="menu==19">
                 <retiros-component></retiros-component>
@@ -130,14 +118,14 @@
         <template v-if="menu==1">
             <h1>Cliente / 1</h1>
         </template>
-        <template v-if="menu==2">
-            <h1>Cliente / 2</h1>
-        </template>
         <template v-if="menu==3">
             <h1>Cliente / 3</h1>
         </template>
         <template v-if="menu==4">
             <problemascliente-component></problemascliente-component>
+        </template>
+        <template v-if="menu==5">
+            <h1>Cliente / 5</h1>
         </template>
         <template v-if="menu==11">
             <proyectocliente-component></proyectocliente-component>
@@ -149,7 +137,7 @@
             <h1>Cliente / 7</h1>
         </template>
         <template v-if="menu==8">
-            <usuario-component></usuario-component>
+            <h1>Cliente / 8</h1>
         </template>
     @endif
 @endsection

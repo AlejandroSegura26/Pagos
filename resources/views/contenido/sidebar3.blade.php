@@ -37,25 +37,11 @@
           </div>
         </div>
       </li>
-      <!-- Nav Item - Metodos de Pago -->
-      <li @click="menu=4" class="nav-item">
-        <a class="nav-link" href="#">
-          <i class="fas fa-fw fa-credit-card"></i>
-          <span>Métodos de Pago</span>
-        </a>
-      </li>
       <!-- Nav Item - Proyectos -->
       <li @click="menu=10" class="nav-item">
         <a class="nav-link" href="#">
           <i class="fas fa-fw fa-suitcase"></i>
           <span>Proyectos</span>
-        </a>
-      </li>
-      <!-- Nav Item - Servicios -->
-      <li @click="menu=6" class="nav-item">
-        <a class="nav-link" href="#">
-          <i class="fas fa-fw fa-screwdriver"></i>
-          <span>Servicios</span>
         </a>
       </li>
       <!-- Nav Item - Facturas -->
@@ -78,13 +64,6 @@
               <span>Retiros</span>
             </a>
           </li>
-      <!-- Nav Item - Usuarios -->
-      <li @click="menu=9" class="nav-item">
-        <a class="nav-link" href="#">
-          <i class="fas fa-fw fa-user"></i>
-          <span>Usuarios</span>
-        </a>
-      </li>
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
       <!-- Sidebar Toggler (Sidebar) -->
