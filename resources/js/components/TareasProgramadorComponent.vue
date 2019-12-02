@@ -157,7 +157,7 @@
             listarTarea(page,buscar,criterio) {
                 let me = this;
                 //Se le asigna a la ruta '/cliente' los parametros 'buscar' y 'criterio' mediante el metodo get que se utiliza para buscar un registro de acuerdo a lo que ha ingresado el usuario en el input para buscar
-                var url = '/tarea?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
+                var url = '/tareaProgramador?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
                 axios.get(url).then(function (response) {
                    
                     //Se crea una variable respuesta que guardara los datos de la consulta mediante ajax
