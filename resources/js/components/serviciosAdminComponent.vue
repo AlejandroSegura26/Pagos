@@ -13,6 +13,10 @@
                       <button type="button" @click="abrirModal('servicio','registrar',0)" class="btn btn-secondary float-right">
                         <i class="fa fa-plus"></i>&nbsp;Agregar Servicio
                     </button>
+                     <button type="button" @click="menu=27" class="btn btn-secondary float-right">
+                        <i class="fa fa-plus"></i>&nbsp;ver servicios con proyectos
+                    </button>
+                   
                 </div>
                 <div class="card-body">
                     <div class="form-group row">
@@ -77,6 +81,10 @@
                 </div>
             </div>
             <!-- Fin de Listado Usuarios-->
+            
+             <template v-if="menu==27">
+                    <verserviciosproyectos-component></verserviciosproyectos-component>
+                    </template>
 
    <!--Inicio del modal agregar-->
         <div class="modal fade" tabindex="-1" :class="{'mostrar' : modal}" role="dialog" aria-labelledby="myModalLabel"
@@ -154,6 +162,7 @@
                 id_proyecto:0,
                 costo:0,
                 nombre:'',
+                menu:0,
               modal:0,
               tipoAccion:0,
                 tituloModal:'',

@@ -78,6 +78,7 @@ Route::group(['middleware' => ['auth']], function () {
       Route::put('/servicios/desactivar','serviciosController@cancelar');
       Route::post('/servicios/agregar','serviciosController@store');
        Route::post('/servicios/proyecto','serviciosController@add');
+        Route::get('/servicios/proyectos','serviciosController@index2');
     });
     //Rutas para el usuario 'Director de Proyecto'
     Route::group(['middleware' => ['DirectorProyecto']], function () {

@@ -45,6 +45,9 @@ Vue.component('inboxcliente-component',require('./components/inboxcliente.vue').
 Vue.component('inboxmanager-component',require('./components/Inboxmanager.vue').default);
 Vue.component('serviciomanager-component',require('./components/serviciosComponent.vue').default);
 Vue.component('servicioadmin-component',require('./components/serviciosAdminComponent.vue').default);
+
+Vue.component('verserviciosproyectos-component',require('./components/proyectoservicioComponent.vue').default);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

@@ -37,6 +37,41 @@ class serviciosController extends Controller
     }
   
   
+    public function index2(Request $request){
+       //if (!$request->ajax()) return redirect('/');
+           $buscar = $request->buscar;
+           $criterio = $request->criterio;
+
+            if ($buscar == '') {
+            $servicios=servicios::join('pservicios AS ps','ps.id_servicio','=','servicios.id')->join('proyecto AS p','p.id','=','ps.id_proyecto')->join('usuarios AS u','u.id','p.id_manager')
+              
+             ->select('servicios.id','servicios.nombre AS snombre','servicios.costo','servicios.estado','p.titulo','u.nombre AS mnombre')
+            ->orderBy('servicios.id','desc')
+            ->paginate(5);
+
+        //En caso contrario devuelve aquellos registros que coinciden con el texto a buscar y lo ordena descendentemente y los pagina de 5 en 5
+        } else {
+             $servicios=servicios::join('pservicios AS ps','ps.id_servicio','=','servicios.id')->join('proyecto AS p','p.id','=','ps.id_proyecto')->join('usuarios AS u','u.id','p.id_manager')
+              
+              ->select('servicios.id','servicios.nombre AS snombre','servicios.costo','servicios.estado','p.titulo','u.nombre AS mnombre')
+          
+            ->where('p.'.$criterio,'like','%'.$buscar.'%')
+            ->orderBy('servicios.id','desc')
+            ->paginate(5);
+        }
+
+           return [
+               'pagination' => [
+                   'total' => $servicios->total(),
+                   'current_page' => $servicios->currentPage(),
+                   'per_page' => $servicios->perPage(),
+                   'last_page' => $servicios->lastPage(),
+                   'from' => $servicios->firstItem(),
+                   'to' => $servicios->lastItem(),
+               ],
+               'servicios' => $servicios
+           ];
+    }
     public function index(Request $request){
        //if (!$request->ajax()) return redirect('/');
            $buscar = $request->buscar;
