@@ -96,6 +96,51 @@ class FacturaController extends Controller
         ];
   }
   
+    
+   public function index3(Request $request)
+       {
+
+           //if (!$request->ajax()) return redirect('/');
+           $buscar = $request->buscar;
+           $criterio = $request->criterio;
+         
+            if ($buscar == '') 
+            {
+            $factura =Factura::join('usuarios','usuarios.id','=','facturas.manager_id')
+              ->join('usuarios as c','c.id','=','facturas.cliente_id')
+              ->join('usuarios as m','m.id','=','facturas.manager_id')
+            ->select('facturas.id','facturas.codigo_factura','facturas.razon','m.nombre','facturas.fecha_factura','facturas.vencimiento_factura',
+                    'facturas.monto','facturas.monto_pagado','facturas.estado_factura')
+   
+            ->orderBy('facturas.id','desc')
+            ->paginate(5);
+              
+        //En caso contrario devuelve aquellos registros que coinciden con el texto a buscar y lo ordena descendentemente y los pagina de 5 en 5
+        }  else {
+           $factura =Factura::join('usuarios','usuarios.id','=','facturas.manager_id')
+              ->join('usuarios as c','c.id','=','facturas.cliente_id')
+              ->join('usuarios as m','m.id','=','facturas.manager_id')
+            ->select('facturas.id','facturas.codigo_factura','facturas.razon','c.nombre','facturas.fecha_factura','facturas.vencimiento_factura',
+                    'facturas.monto','facturas.monto_pagado','facturas.estado_factura')
+          
+            ->orderBy('tareas.id','desc')
+            ->paginate(5);
+       } 
+    
+      return [
+            'pagination' => [
+                'total' => $factura->total(),
+                'current_page' => $factura->currentPage(),
+                'per_page' => $factura->perPage(),
+                'last_page' => $factura->lastPage(),
+                'from' => $factura->firstItem(),
+                'to' => $factura->lastItem(),
+            ],
+            'factura' => $factura
+        ];
+  }
+  
+  
  
      public function store(Request $request)
     {

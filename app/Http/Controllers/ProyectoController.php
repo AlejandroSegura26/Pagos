@@ -226,7 +226,7 @@ class ProyectoController extends Controller
 
         }
  
-  public function selectProyecto2(Request $request)
+      public function selectProyecto2(Request $request)
     {
         //Verifica que solo existan peticiones por Ajax, en caso de acceder a una ruta dirigira a la raiz
          if (!$request->ajax()) return redirect('/');

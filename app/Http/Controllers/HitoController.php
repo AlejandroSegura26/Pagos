@@ -26,6 +26,7 @@ class HitoController extends Controller
         } else {
              $hito =Hito::join('proyecto AS p','p.id','=','hitos.id')
             ->select('hitos.id','p.titulo as ptitulo','hitos.titulo','hitos.fecha_inicio','hitos.fecha_fin','hitos.descripcion','hitos.estado')
+               ->where('p.id_manager','=',Auth::user()->id)
                ->where('hitos.'.$criterio,'like','%'.$buscar.'%')
              ->orderBy('hitos.id','desc')
             ->paginate(5);
@@ -43,7 +44,40 @@ class HitoController extends Controller
                'hito' => $hito
            ];
        }
+public function index2(Request $request)
+       {
 
+           //if (!$request->ajax()) return redirect('/');
+           $buscar = $request->buscar;
+           $criterio = $request->criterio;
+         
+            if ($buscar == '') {
+            $hito =Hito::join('proyecto AS p','p.id','=','hitos.id_proyecto')
+            ->select('hitos.id','p.titulo as ptitulo','hitos.titulo','hitos.fecha_inicio','hitos.fecha_fin','hitos.descripcion','hitos.estado')
+              ->orderBy('hitos.id','desc')
+            ->paginate(5);
+              
+        //En caso contrario devuelve aquellos registros que coinciden con el texto a buscar y lo ordena descendentemente y los pagina de 5 en 5
+        } else {
+             $hito =Hito::join('proyecto AS p','p.id','=','hitos.id')
+            ->select('hitos.id','p.titulo as ptitulo','hitos.titulo','hitos.fecha_inicio','hitos.fecha_fin','hitos.descripcion','hitos.estado')
+               ->where('hitos.'.$criterio,'like','%'.$buscar.'%')
+             ->orderBy('hitos.id','desc')
+            ->paginate(5);
+        }
+
+           return [
+               'pagination' => [
+                   'total' => $hito->total(),
+                   'current_page' => $hito->currentPage(),
+                   'per_page' => $hito->perPage(),
+                   'last_page' => $hito->lastPage(),
+                   'from' => $hito->firstItem(),
+                   'to' => $hito->lastItem(),
+               ],
+               'hito' => $hito
+           ];
+       }
         public function store(Request $request)
        {
            if (!$request->ajax()) return redirect('/');

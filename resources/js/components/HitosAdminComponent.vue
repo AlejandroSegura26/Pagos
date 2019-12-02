@@ -11,10 +11,8 @@
             <div class="card">
                 <div class="card-header">
                     <i class="fa fa-thumbtack"></i>&nbsp;&nbsp;Hitos&nbsp;
-                    <button type="button" @click="abrirModal('hito','registrar',0)" class="btn btn-secondary float-right">
-                        <i class="fa fa-plus"></i>&nbsp;Nuevo
-                    </button>
-                     < <button type="button" @click="menu=15" class="btn btn-secondary float-right">
+                
+                     <button type="button" @click="menu=15" class="btn btn-secondary float-right">
                         <i class="fa fa-plus"></i>&nbsp;Ver todas las tareas
                     </button> 
                 </div>
@@ -35,7 +33,7 @@
                     <table class="table table-bordered table-striped table-sm">
                         <thead>
                             <tr>
-                                <th>Opciones</th>
+                              
                                 <th>Proyecto</th>
                                 <th>Titulo</th>
                                 <th>Fecha inicio</th>
@@ -46,23 +44,7 @@
                         </thead>
                         <tbody>
                             <tr v-for="hito in arrayHito" :key="hito.id">
-                                <td>
-                                      <button type="button" @click="abrirModal('hito','actualizar',hito,hito.id)" class="btn btn-warning btn-sm">
-                                        <i class="fas fa-pen"></i>
-                                    </button> &nbsp;
-                                      <button type="button" @click="abrirModal('hito','add',hito,hito.id)" class="btn btn-warning btn-sm">
-                                        <i class="fas fa-plus"></i>
-                                    </button> &nbsp;
-                                       
-                                        <template v-if="hito.estado">
-                                        <button type="button" class="btn btn-danger btn-sm" @click="desactivarHito(hito.id)">
-                                            <i class="far fa-eye-slash"></i>
-                                        </button>&nbsp;
-                                    </template>
  
-
-
-                                </td>
                                 <td v-text="hito.ptitulo"></td>
                                 <td v-text="hito.titulo"></td>
                                 <td v-text="hito.fecha_inicio"></td>
@@ -307,7 +289,7 @@
             listarHito(page,buscar,criterio) {
                 let me = this;
                 //Se le asigna a la ruta '/cliente' los parametros 'buscar' y 'criterio' mediante el metodo get que se utiliza para buscar un registro de acuerdo a lo que ha ingresado el usuario en el input para buscar
-                var url = '/hito?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
+                var url = '/hitoa?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
                 axios.get(url).then(function (response) {
                     //Se crea una variable respuesta que guardara los datos de la consulta mediante ajax
                     var respuesta = response.data;
@@ -340,7 +322,7 @@
             selectProyecto( ) {
                  let me = this;
                 //Se le asigna a la ruta '/cliente' los parametros 'buscar' y 'criterio' mediante el metodo get que se utiliza para buscar un registro de acuerdo a lo que ha ingresado el usuario en el input para buscar
-                var url = '/usuario/selectProyectoa';
+                var url = '/usuario/selectProyecto';
                 axios.get(url).then(function (response) {
                     //Se crea una variable respuesta que guardara los datos de la consulta mediante ajax
                     var respuesta = response.data;

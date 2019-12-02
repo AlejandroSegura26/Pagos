@@ -49,6 +49,9 @@ Vue.component('servicioadmin-component',require('./components/serviciosAdminComp
 Vue.component('verserviciosproyectos-component',require('./components/proyectoservicioComponent.vue').default);
 Vue.component('facturasmanager-component',require('./components/FacturasComponent.vue').default);
 Vue.component('facturascliente-component',require('./components/FacturasClienteComponent.vue').default);
+Vue.component('hitosa-component', require('./components/HitosAdminComponent.vue').default);
+Vue.component('tareasa-component', require('./components/TareasAdminComponent.vue').default);
+Vue.component('facturasadmin-component',require('./components/FacturasAdminComponent.vue').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

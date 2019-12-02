@@ -8,11 +8,11 @@
         </template>
         <!-- Hitos -->
         <template v-if="menu==1">
-            <h1>Administrador / 1</h1>
+           <hitosa-component></hitosa-component>
         </template>
         <!-- Tareas -->
         <template v-if="menu==2">
-            <h1>Administrador / 2</h1>
+            <tareasa-component></tareasa-component>
         </template>
         <!-- Boletos -->
         <template v-if="menu==3">
@@ -36,7 +36,7 @@
         </template>
         <!-- Facturas -->
         <template v-if="menu==8">
-            <h1>Administrador / 7</h1>
+            <facturasadmin-component></facturasadmin-component>
         </template>
         <!-- Movimientos -->
         <template v-if="menu==9">

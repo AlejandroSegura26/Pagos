@@ -79,13 +79,16 @@ Route::group(['middleware' => ['auth']], function () {
       Route::post('/servicios/agregar','serviciosController@store');
        Route::post('/servicios/proyecto','serviciosController@add');
         Route::get('/servicios/proyectos','serviciosController@index2');
+      Route::get('/hitoa','HitoController@index2');
+            Route::get('/facturaAdmin','FacturaController@index3');
+      
     });
     //Rutas para el usuario 'Director de Proyecto'
     Route::group(['middleware' => ['DirectorProyecto']], function () {
       Route::get('/proyecto/proyectomanager','ProyectoController@proyectosManager');
       Route::put('/proyecto/desactivar','ProyectoController@desactivar');
       Route::get('/usuario/selectProgramador','UserController@selectProgramador');
-      Route::get('/usuario/selectProyecto','ProyectoController@selectProyecto2');
+      Route::get('/usuario/selectProyectoa','ProyectoController@selectProyecto2');
       Route::get('/usuario/selectProgramadorTarea','UserController@selectProgramadorTarea');
       Route::get('/usuario/selectHito','HitoController@selectHito');
       Route::post('/miembrosProyecto/agregar','ProyectoMiembroController@store');
