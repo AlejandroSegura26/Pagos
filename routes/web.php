@@ -19,6 +19,12 @@ Route::group(['middleware' => ['guest']], function () {
 });
 //Rutas para un usuario autenticado
 Route::group(['middleware' => ['auth']], function () {
+  //Contenido principal
+  Route::get('/principal', function () {
+    return view('contenido/contenido');
+  })->name('principal');
+  //Ruta para cerrar sesion
+  Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
     //Rutas para el usuario 'Administrador'
     Route::group(['middleware' => ['Administrador']], function () {
         //Rutas para ver y listar roles
@@ -52,16 +58,15 @@ Route::group(['middleware' => ['auth']], function () {
         Route::put('/metodoPago/desactivar','MetodoPagoController@desactivar');
         Route::put('/metodoPago/activar','MetodoPagoController@activar');
 
-      //aceptar
-      Route::get('/retiro','GastosController@vistaaprobar');
-      Route::put('/retiro/aceptar','GastosController@aceptar');
-      Route::put('/retiro/rechazar','GastosController@rechazar');
-      Route::put('/retiro/cambio','GastosController@change');
-      
-      //inbox general
-      Route::get('/inbox','inboxController@inboxGeneral');
-      Route::post('/inbox/enviar','inboxController@inboxNew');
-     
+        //aceptar
+        Route::get('/retiro','GastosController@vistaaprobar');
+        Route::put('/retiro/aceptar','GastosController@aceptar');
+        Route::put('/retiro/rechazar','GastosController@rechazar');
+        Route::put('/retiro/cambio','GastosController@change');
+        Route::get('/problema/problemasadmin','ProblemaController@problemasAdmin'); 
+        Route::get('/usuario/selectProgramador','UserController@selectProgramador');
+        Route::put('/problema/asignarProgramador','ProblemaController@asignarProgramador');
+        
     });
     //Rutas para el usuario 'Director de Proyecto'
     Route::group(['middleware' => ['DirectorProyecto']], function () {
@@ -84,14 +89,14 @@ Route::group(['middleware' => ['auth']], function () {
       Route::get('/tarea','TareaController@index');
       Route::post('/tarea/registrar','TareaController@store');
       Route::put('/tarea/desactivar','TareaController@desactivar');
-       //inbox manager
-      Route::get('/manager/receptor','inboxController@inboxManagerR');
-     
-      Route::post('/inbox/enviar','inboxController@inboxNew');
-      
-      Route::get('/inbox/proyectom','inboxController@ProyectoM');
-      Route::get('/inbox/cliente','inboxController@Clientes');
-      
+      Route::get('/problema','ProblemaController@index');
+      Route::post('/problema/registrar','ProblemaController@store');
+      Route::get('/usuario/selectProyecto','ProyectoController@selectProyecto');
+      Route::put('/problema/asignarProgramador','ProblemaController@asignarProgramador');
+
+      Route::get('/sitio', 'SitioController@index');
+      Route::get('/site', 'SitioController@listarInfoSitios');
+      Route::post('/site/registrar', 'SitioController@store');
     });
     //Rutas para el usuario 'Programador'
     Route::group(['middleware' => ['Programador']], function () {
@@ -100,26 +105,18 @@ Route::group(['middleware' => ['auth']], function () {
       Route::get('/metodo/selectMetodoPago','MetodoPagoController@selectMetodoPago');
       Route::get('/proyecto/selectProyecto','ProyectoController@selectProyecto');
       Route::get('/proyecto/proyectoprogramador','ProyectoController@proyectosProgramador');
-      Route::get('/tareaProgramador','TareaController@indexProgramador');
+      Route::get('/problema','ProblemaController@index');
+      Route::post('/problema/registrar','ProblemaController@store');
+      Route::get('/usuario/selectProyecto','ProyectoController@selectProyecto');
+      Route::put('/problema/actualizarProblema','ProblemaController@actualizarProblema');
     });
     //Rutas para el usuario 'Cliente'
     Route::group(['middleware' => ['Cliente']], function () {
       Route::get('/proyecto/proyectocliente','ProyectoController@proyectosCliente');
       Route::put('/proyecto/cancelar','ProyectoController@cancelar');
-       //inbox manager
-      Route::get('/cliente/receptor','inboxController@inboxClienteR');
-   
-    
-      Route::post('/inbox/enviar','inboxController@inboxNew');
-      
-      Route::get('/inbox/proyectoc','inboxController@ProyectoC');
-      Route::get('/inbox/manager','inboxController@Manager');
+      Route::get('/problema','ProblemaController@index');
+      Route::post('/problema/registrar','ProblemaController@store');
+      Route::get('/usuario/selectProyecto','ProyectoController@selectProyecto');
     });
-    //Contenido principal
-    Route::get('/principal', function () {
-        return view('contenido/contenido');
-    })->name('principal');
-    //Ruta para cerrar sesion
-    Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 });
 

@@ -33,6 +33,7 @@
             <a @click="menu=1" class="collapse-item" href="#"><i class="fas fa-fw fa-thumbtack"></i>&nbsp;Hitos</a>
             <a @click="menu=2" class="collapse-item" href="#"><i class="fas fa-fw fa-list"></i>&nbsp;Tareas</a>
             <a @click="menu=3" class="collapse-item" href="#"><i class="fas fa-fw fa-comment-dots"></i>&nbsp;Boletos</a>
+            <a @click="menu=31" class="collapse-item" href="#"><i class="fas fa-fw fa-bookmark"></i>&nbsp;Problemas</a>
           </div>
         </div>
       </li>
