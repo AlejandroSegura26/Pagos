@@ -120,7 +120,12 @@ Route::group(['middleware' => ['auth']], function () {
       
       Route::get('/inbox/proyectom','inboxController@ProyectoM');
       Route::get('/inbox/cliente','inboxController@Clientes');
-      
+      Route::post('/factura/registrar','FacturaController@store');
+      Route::post('/factura','FacturaController@index');
+      Route::get('/usuario/selectCliente','UserController@selectCliente');
+      Route::get('/factura','FacturaController@index');
+      Route::put('/factura/actualizar','FacturaController@update');
+      Route::post('/factura/cancelar','FacturaController@cancelar');
 
     });
     //Rutas para el usuario 'Programador'
@@ -134,6 +139,7 @@ Route::group(['middleware' => ['auth']], function () {
       Route::post('/problema/registrar','ProblemaController@store');
       Route::get('/usuario/selectProyecto','ProyectoController@selectProyecto');
       Route::put('/problema/actualizarProblema','ProblemaController@actualizarProblema');
+      
     });
     //Rutas para el usuario 'Cliente'
     Route::group(['middleware' => ['Cliente']], function () {
@@ -151,6 +157,8 @@ Route::group(['middleware' => ['auth']], function () {
       
       Route::get('/inbox/proyectoc','inboxController@ProyectoC');
       Route::get('/inbox/manager','inboxController@Manager');
+      Route::get('/facturaCliente','FacturaController@index2');
+      Route::put('/factura/pago','FacturaController@pago');
     });
 });
 

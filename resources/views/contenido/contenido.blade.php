@@ -69,8 +69,8 @@
         <template v-if="menu==12">
            <proyectomanager-component></proyectomanager-component>
         </template>
-        <template v-if="menu==6">
-            <h1>D_Proyecto / 6</h1>
+        <template v-if="menu==7">
+             <facturasmanager-component></proyectomanager-component>
         </template>
         <template v-if="menu==25">
             <serviciomanager-component></serviciomanager-component>
@@ -132,7 +132,7 @@
             <h1>Cliente / 6</h1>
         </template>
         <template v-if="menu==7">
-            <h1>Cliente / 7</h1>
+              <facturascliente-component></facturascliente-component>
         </template>
         <template v-if="menu==8">
             <h1>Cliente / 8</h1>
