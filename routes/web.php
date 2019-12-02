@@ -66,7 +66,18 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/problema/problemasadmin','ProblemaController@problemasAdmin'); 
         Route::get('/usuario/selectProgramador','UserController@selectProgramador');
         Route::put('/problema/asignarProgramador','ProblemaController@asignarProgramador');
-        
+      
+      //inbox general
+      Route::get('/inbox','inboxController@inboxGeneral');
+      Route::post('/inbox/enviar','inboxController@inboxNew');
+      
+      //servicios
+      Route::get('/proyecto/admin','ProyectoController@selectProyectoAdmin');
+      Route::get('/servicios','servicioController@index');
+       Route::put('/servicios/activar','serviciosController@activar');
+      Route::put('/servicios/desactivar','serviciosController@cancelar');
+      Route::post('/servicios/agregar','serviciosController@store');
+       Route::post('/servicios/proyecto','serviciosController@add');
     });
     //Rutas para el usuario 'Director de Proyecto'
     Route::group(['middleware' => ['DirectorProyecto']], function () {
@@ -97,6 +108,19 @@ Route::group(['middleware' => ['auth']], function () {
       Route::get('/sitio', 'SitioController@index');
       Route::get('/site', 'SitioController@listarInfoSitios');
       Route::post('/site/registrar', 'SitioController@store');
+      
+      //servicios
+      Route::get('/servicios','serviciosController@index');
+      Route::post('/servicios/proyecto','serviciosController@add');
+      //inbox manager
+      Route::get('/manager/receptor','inboxController@inboxManagerR');
+     
+      Route::post('/inbox/enviar','inboxController@inboxNew');
+      
+      Route::get('/inbox/proyectom','inboxController@ProyectoM');
+      Route::get('/inbox/cliente','inboxController@Clientes');
+      
+
     });
     //Rutas para el usuario 'Programador'
     Route::group(['middleware' => ['Programador']], function () {
@@ -117,6 +141,15 @@ Route::group(['middleware' => ['auth']], function () {
       Route::get('/problema','ProblemaController@index');
       Route::post('/problema/registrar','ProblemaController@store');
       Route::get('/usuario/selectProyecto','ProyectoController@selectProyecto');
+      
+      //inbox cliente
+      Route::get('/cliente/receptor','inboxController@inboxClienteR');
+   
+    
+      Route::post('/inbox/enviar','inboxController@inboxNew');
+      
+      Route::get('/inbox/proyectoc','inboxController@ProyectoC');
+      Route::get('/inbox/manager','inboxController@Manager');
     });
 });
 

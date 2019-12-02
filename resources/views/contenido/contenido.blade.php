@@ -16,7 +16,7 @@
         </template>
         <!-- Boletos -->
         <template v-if="menu==3">
-            <h1>Administrador / 3</h1>
+            <inboxadmin-component></inboxadmin-component>
         </template>
         <!-- Problemas -->
         <template v-if="menu==4">
@@ -32,7 +32,7 @@
         </template>
         <!-- Servicios -->
         <template v-if="menu==7">
-            <h1>Administrador / 6</h1>
+            <servicioadmin-component></servicioadmin-component>
         </template>
         <!-- Facturas -->
         <template v-if="menu==8">
@@ -60,8 +60,8 @@
         <template v-if="menu==2">
           <tareas-component></tareas-component>
         </template>
-        <template v-if="menu==3">
-            <h1>D_Proyecto / 3</h1>
+        <template v-if="menu==23">
+            <inboxmanager-component></inboxmanager-component>
         </template>
         <template v-if="menu==30">
             <problemasdp-component></problemasdp-component>
@@ -72,8 +72,8 @@
         <template v-if="menu==6">
             <h1>D_Proyecto / 6</h1>
         </template>
-        <template v-if="menu==7">
-            <h1>D_Proyecto / 7</h1>
+        <template v-if="menu==25">
+            <serviciomanager-component></serviciomanager-component>
         </template>
         <template v-if="menu==40">
             <sitio-component></sitio-component>
@@ -92,9 +92,7 @@
         <template v-if="menu==2">
             <h1>Programador / 2</h1>
         </template>
-        <template v-if="menu==3">
-            <h1>Programador / 3</h1>
-        </template>
+       
         <template v-if="menu==31">
             <problemaspg-component></problemaspg-component>
         </template>
@@ -118,8 +116,8 @@
         <template v-if="menu==1">
             <h1>Cliente / 1</h1>
         </template>
-        <template v-if="menu==3">
-            <h1>Cliente / 3</h1>
+        <template v-if="menu==24">
+           <inboxcliente-component></inboxcliente-component>
         </template>
         <template v-if="menu==4">
             <problemascliente-component></problemascliente-component>

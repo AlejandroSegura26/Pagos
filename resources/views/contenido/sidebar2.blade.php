@@ -32,7 +32,7 @@
             <h6 class="collapse-header">Hitos, Tareas y Boletos:</h6>
             <a @click="menu=1" class="collapse-item" href="#"><i class="fas fa-fw fa-thumbtack"></i>&nbsp;Hitos</a>
             <a @click="menu=2" class="collapse-item" href="#"><i class="fas fa-fw fa-list"></i>&nbsp;Tareas</a>
-            <a @click="menu=3" class="collapse-item" href="#"><i class="fas fa-fw fa-comment-dots"></i>&nbsp;Boletos</a>
+            <a @click="menu=23" class="collapse-item" href="#"><i class="fas fa-fw fa-comment-dots"></i>&nbsp;Boletos</a>
             <a @click="menu=30" class="collapse-item" href="#"><i class="fas fa-fw fa-bookmark"></i>&nbsp;Problemas</a>
           </div>
         </div>
@@ -52,7 +52,7 @@
         </a>
       </li>
       <!-- Nav Item - Servicios -->
-      <li @click="menu=6" class="nav-item">
+      <li @click="menu=25" class="nav-item">
         <a class="nav-link" href="#">
           <i class="fas fa-fw fa-screwdriver"></i>
           <span>Servicios</span>

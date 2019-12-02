@@ -214,6 +214,17 @@ class ProyectoController extends Controller
             return ['proyecto' => $proyecto];
         }
 
+   public function selectProyectoAdmin(Request $request)
+        {
+            //Verifica que solo existan peticiones por Ajax, en caso de acceder a una ruta dirigira a la raiz
+      
+            //Verifica que traiga solo los roles que estan activas y las ordena ascendentemente para guardalas en el arreglo 'roles'
+            $proyecto = Proyecto::where('proyecto.estado','=','inicializado')->
+              select('proyecto.id','proyecto.titulo')
+            ->orderBy('titulo','asc')->get();
+            return ['proyecto' => $proyecto];
+
+        }
  
   public function selectProyecto2(Request $request)
     {

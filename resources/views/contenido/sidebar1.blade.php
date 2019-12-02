@@ -44,7 +44,7 @@
             <span>Métodos de Pago</span>
           </a>
         </li>
-        <!-- Nav Item - Proyectos -->
+        <!-- Nav Item - servicioss -->
         <li @click="menu=6" class="nav-item">
           <a class="nav-link" href="#">
             <i class="fas fa-fw fa-suitcase"></i>

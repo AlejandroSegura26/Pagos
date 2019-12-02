@@ -40,7 +40,11 @@ Vue.component('problemascliente-component', require('./components/ProblemasClien
 Vue.component('problemasdp-component', require('./components/ProblemasDProyectoComponent.vue').default);
 Vue.component('problemaspg-component', require('./components/ProblemasProgramadorComponent.vue').default);
 Vue.component('sitio-component', require('./components/SitioComponent.vue').default);
-
+Vue.component('inboxadmin-component',require('./components/InboxadminComponent.vue').default);
+Vue.component('inboxcliente-component',require('./components/inboxcliente.vue').default);
+Vue.component('inboxmanager-component',require('./components/Inboxmanager.vue').default);
+Vue.component('serviciomanager-component',require('./components/serviciosComponent.vue').default);
+Vue.component('servicioadmin-component',require('./components/serviciosAdminComponent.vue').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
