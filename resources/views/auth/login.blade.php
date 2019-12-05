@@ -8,7 +8,7 @@
             <div class="card-body p-0">
               <!-- Nested Row within Card Body -->
               <div class="row">
-                <div class="col-lg-6 d-none d-lg-block bg-login-image" style="background:url(https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=600)"></div>
+                <div class="col-lg-6 d-none d-lg-block bg-login-image" style="background:url(https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=600)"></div>
                 <div class="col-lg-6">
                   <div class="p-5">
                       <br>

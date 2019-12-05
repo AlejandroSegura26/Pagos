@@ -1,63 +1,14 @@
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
 
-//require('./bootstrap');
 
 window.Vue = require('vue');
 window.axios = require('axios');
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
-
-// const files = require.context('./', true, /\.vue$/i);
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
-
-Vue.component('usuario-component', require('./components/UsuarioComponent.vue').default);
-Vue.component('metodospago-component', require('./components/MetodosPagoComponent.vue').default);
-Vue.component('proyecto-component', require('./components/ProyectosComponent.vue').default);
-Vue.component('proyectocliente-component', require('./components/ProyectosClienteComponent.vue').default);
-Vue.component('proyectomanager-component', require('./components/ProyectosManagerComponent.vue').default);
-Vue.component('proyectoprogramador-component', require('./components/ProyectosProgramadorComponent.vue').default);
-Vue.component('proyectointegrantes-component', require('./components/ProyectoIntegrantesComponent.vue').default);
-Vue.component('proyectotodos-component', require('./components/ProyectoTodosComponent.vue').default);
-Vue.component('aretiros-component', require('./components/AceptarPeticionComponent.vue').default);
-Vue.component('retiros-component', require('./components/PeticionComponent.vue').default);
-Vue.component('mretiros-component', require('./components/PeticionComponentManager.vue').default);
 Vue.component('hitos-component', require('./components/HitosComponent.vue').default);
-Vue.component('tareas-component', require('./components/TareasComponent.vue').default);
-Vue.component('problemasad-component', require('./components/ProblemasAdminComponent.vue').default);
-
-Vue.component('problemascliente-component', require('./components/ProblemasClienteComponent.vue').default);
-Vue.component('problemasdp-component', require('./components/ProblemasDProyectoComponent.vue').default);
-Vue.component('problemaspg-component', require('./components/ProblemasProgramadorComponent.vue').default);
-Vue.component('sitio-component', require('./components/SitioComponent.vue').default);
-Vue.component('inboxadmin-component',require('./components/InboxadminComponent.vue').default);
-Vue.component('inboxcliente-component',require('./components/inboxcliente.vue').default);
-Vue.component('inboxmanager-component',require('./components/Inboxmanager.vue').default);
-Vue.component('serviciomanager-component',require('./components/serviciosComponent.vue').default);
-Vue.component('servicioadmin-component',require('./components/serviciosAdminComponent.vue').default);
-
-Vue.component('verserviciosproyectos-component',require('./components/proyectoservicioComponent.vue').default);
-Vue.component('facturasmanager-component',require('./components/FacturasComponent.vue').default);
-Vue.component('facturascliente-component',require('./components/FacturasClienteComponent.vue').default);
-Vue.component('hitosa-component', require('./components/HitosAdminComponent.vue').default);
-Vue.component('tareasa-component', require('./components/TareasAdminComponent.vue').default);
-Vue.component('facturasadmin-component',require('./components/FacturasAdminComponent.vue').default);
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-
+Vue.component('tareas-component', require('./components/AlumnosComponent.vue').default);
+Vue.component('alum', require('./components/AlumnosComponent.vue').default);
+Vue.component('colegiaturas', require('./components/ColegiaturasComponent.vue').default);
+ Vue.component('servicios', require('./components/ServiciosComponent.vue').default);
 const app = new Vue({
     el: '#app',
     data: {

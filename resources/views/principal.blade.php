@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-  <title>PFF</title>
+  <title>Sistema de control</title>
   <!-- CSS-->
   <link href="fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="css/plantilla.css" rel="stylesheet" type="text/css">
@@ -20,19 +20,7 @@
     <!-- Page Wrapper -->
     <div id="wrapper">
       @if (Auth::check())
-          <!-- Administrador -->
-          @if (Auth::user()->rol_id == 1)
             @include('contenido.sidebar1')
-          <!-- Director Proyecto -->
-          @elseif(Auth::user()->rol_id == 2)
-            @include('contenido.sidebar2')
-          <!-- Programador -->
-          @elseif(Auth::user()->rol_id == 3)
-            @include('contenido.sidebar3')
-          <!-- Cliente -->
-          @elseif(Auth::user()->rol_id == 4)
-            @include('contenido.sidebar4')
-          @endif
       @endif
       <!-- Content Wrapper -->
       <div id="content-wrapper" class="d-flex flex-column">
@@ -50,26 +38,12 @@
               <!-- Nav Item - User Information -->
               <li class="nav-item dropdown no-arrow">
                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{Auth::user()->nombre}}</span>
+                  <span class="mr-2 d-none d-lg-inline text-gray-600 small">Usuario</span>
                   <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
                 </a>
                 <!-- Dropdown - User Information -->
                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                    @if (Auth::check())
-                      <!-- Administrador -->
-                      @if (Auth::user()->rol_id == 1)
-                      <span class="dropdown-item">&nbsp;&nbsp;Administrador</span>
-                      <!-- Director Proyecto -->
-                      @elseif(Auth::user()->rol_id == 2)
-                      <span class="dropdown-item">&nbsp;&nbsp;D. de Proyecto</span>
-                      <!-- Programador -->
-                      @elseif(Auth::user()->rol_id == 3)
-                      <span class="dropdown-item">&nbsp;&nbsp;Programador</span>
-                      <!-- Cliente -->
-                      @elseif(Auth::user()->rol_id == 4)
-                      <span class="dropdown-item">&nbsp;&nbsp;Cliente</span>
-                      @endif
-                    @endif
+               
                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fas fa-sign-out-alt"></i>&nbsp;&nbsp;Cerrar sesión</a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display:none;">
                       {{ csrf_field() }}
@@ -93,7 +67,7 @@
         <footer class="sticky-footer bg-white">
           <div class="container my-auto">
             <div class="copyright text-center my-auto">
-              <span>Copyright &copy; 2019 Todos los derechos reservados.&nbsp;<a href="http://urielroman.me/">ourc</a></span>
+              <span>Copyright &copy; 2019 Todos los derechos reservados.&nbsp;<a href="http://jasegura.me/">Jose Alejandro Segura Hernandez</a></span>
             </div>
           </div>
         </footer>
