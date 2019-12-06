@@ -4,20 +4,18 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Alumno extends Model
+class PagoColegiatura extends Model
 {
-    protected $table = 'alumnos';
+      protected $table = 'pagosColegiaturas';
     protected $filltable =[ 
     'id',
-    'nombre',
-    'correo_electronico',
-    'telefono',
-    'fecha_nacimiento',
+    'colegiatura_id',
+    'alumno_id',
     'estado'];
     public $timestamps = false;
 
 
     public function Hito(){
-        return $this -> hasMany('App\Alumno');
+        return $this -> hasMany('App\PagoColegiatura');
     }
 }

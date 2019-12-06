@@ -52,5 +52,7 @@ Route::group(['middleware' => ['auth']], function () {
   Route::put('/colegiatura/actualizar','ColegiaturaController@update');
   Route::post('/colegiatura/desactivar','ColegiaturaController@desactivar');
   Route::post('/colegiatura/activar','ColegiaturaController@activar');
+  
+  Route::get('/pagoColegiatura','PagoColegiaturaController@index');
 });
 

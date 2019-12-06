@@ -93,137 +93,11 @@
                 </div>
             </div>
             <!-- Fin de Listado Usuarios -->
-
-            <template style="margin-top:10px;" v-if="menu==15">
-                <tareas-component></tareas-component>
-            </template>
+ 
 
 
         </div>
-        <!--Inicio del modal agregar/actualizar-->
-        <div class="modal fade" tabindex="-1" :class="{'mostrar' : modal}" role="dialog" aria-labelledby="myModalLabel"
-            style="display: none; overflow-y: scroll; padding-top: 55px;" aria-hidden="true">
-            <div class="modal-dialog modal-primary modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title" v-text="tituloModal"></h4>
-                        <button type="button" class="close" @click="cerrarModal()" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form v-if="tipoAccion != 3" action="" method="post" enctype="multipart/form-data" class="form-horizontal">
-                            <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">Proyecto <b>(*)</b></label>
-                                <div class="col-md-9">
-                                    <select class="form-control" v-model="id_proyecto">
-                                        <option value="0">Seleccione una opción: </option>
-                                        <option v-for="proyecto in arrayProyecto" :key="proyecto.id" :value="proyecto.id" v-text="proyecto.titulo"></option>
-                                    </select>
-                                </div>
-                            </div>
-                            
-                            <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">Titulo</label>
-                                <div class="col-md-9">
-                                    <input type="text" v-model="titulo" class="form-control"
-                                        placeholder="Ingrese el titulo del proyecto">
-                                </div>
-                            </div>
-                           
-                            <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">Fecha Inicio<b>(*)</b></label>
-                                <div class="col-md-9">
-
-                                    <input type="date" v-model="fecha_inicio" class="form-control"
-                                        placeholder="Ingrese la fecha de inicio" min="<?php echo $fecha = date()?>" >
-
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">Fecha Final<b>(*)</b></label>
-                                <div class="col-md-9">
-
-                                    <input type="date" v-model="fecha_final   " class="form-control"
-                                        placeholder="Ingrese la fecha de fin "   min="<?php echo $fecha = date()?>" >
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">Descripcion <b>(*)</b></label>
-                                <div class="col-md-9">
-                                    <input type="text" v-model="descripcion" class="form-control"
-                                        placeholder="Ingrese la descripcion">
-                                </div>
-                            </div>
-                            <div v-show="errorProyecto" class="form-group row div-error">
-                                <div class="text-center text-error">
-                                    <div v-for="error in errorMostrarMsjProyecto" :key="error" v-text="error"></div>
-                                </div>
-                            </div>
-                        </form>
-
-                         <form v-else action="" method="post" enctype="multipart/form-data" class="form-horizontal">
-                            
-                  
-                             <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">Programador <b>(*)</b></label>
-                                <div class="col-md-9">
-                                    <select class="form-control" v-model="miembro_id">
-                                        <option value="0">Seleccione una opción: </option>
-                                        <option v-for="programador in arrayProgramador" :key="programador.id" :value="programador.id" v-text="programador.nombre"></option>
-                                    </select>
-                                </div>
-                            </div>
-                          
-                             <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">Fecha inicio<b>(*)</b></label>
-                                <div class="col-md-9">
-
-                                    <input type="date" v-model="fecha_inicio" class="form-control"
-                                        placeholder="Ingrese la fecha de inicio" min="<?php echo $fecha = date()?>" >
-
-                                </div>
-                            </div>
-                            
-                             
-                          
-                              <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">Horas<b>(*)</b></label>
-                                <div class="col-md-9">
-                                    <input type="text" v-model="horas" class="form-control"
-                                        placeholder="Ingrese horas de trabajo ">
-                                </div>
-                            </div>
-                          
-                  
-                          
-                           <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">Descripcion <b>(*)</b></label>
-                                <div class="col-md-9">
-                                    <input type="text" v-model="descripcion" class="form-control"
-                                        placeholder="Ingrese la descripcion">
-                                </div>
-                            </div>
-                            <div v-show="errorProyecto" class="form-group row div-error">
-                                <div class="text-center text-error">
-                                    <div v-for="error in errorMostrarMsjTarea" :key="error" v-text="error"></div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <span><b>(*)</b>&nbsp;Campo obligatorio de ingresar</span>
-                        <button type="button" class="btn btn-secondary" @click="cerrarModal()">Cerrar</button>
-                        <button type="button" v-if="tipoAccion==1" class="btn btn-success" @click="registrarHito()">Guardar</button>
-                        <button type="button" v-if="tipoAccion==2" class="btn btn-warning" @click="actualizarHito()">Actualizar</button>
-                        <button type="button" v-if="tipoAccion==3" class="btn btn-success" @click="agregarTarea()">Agregar</button>
-                    </div>
-                </div>
-                <!-- /.modal-content -->
-            </div>
-            <!-- /.modal-dialog -->
-        </div>
-        <!--Fin del modal-->
+      
     </main>
 </template>
 
@@ -253,12 +127,7 @@
                 arrayManager: [],
                 arrayCliente: [],
                 modal: 0,
-                tituloModal: '',
-                tipoAccion: 0,
-                errorProyecto: 0,
-                errorTarea:0,
-                errorMostrarMsjProyecto: [],
-               errorMostrarMsjTarea: [],
+              
                 pagination: {
                     'total': 0,
                     'current_page': 0,

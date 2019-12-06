@@ -13,7 +13,7 @@
         </template>
         <!-- Tareas -->
         <template v-if="menu==3">
-            <tareas-component></tareasa-component>
+            <pagoscolegiaturas></pagoscolegiaturas>
         </template>
         <!-- Boletos -->
         <template v-if="menu==4">
@@ -33,6 +33,9 @@
         </template>
         <!-- Servicios -->
         <template v-if="menu==8">
+         <h1>Administrador / 8</h1>
+        </template>
+      <template v-if="menu==9">
          <h1>Administrador / 8</h1>
         </template>
      

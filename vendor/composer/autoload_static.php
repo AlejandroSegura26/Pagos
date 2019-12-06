@@ -381,6 +381,7 @@ class ComposerStaticInitc642cebbf5fe311085f5be1bf28aa3c3
 
     public static $classMap = array (
         'App\\Alumno' => __DIR__ . '/../..' . '/app/Alumno.php',
+        'App\\Colegiatura' => __DIR__ . '/../..' . '/app/Colegiatura.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Hito' => __DIR__ . '/../..' . '/app/Hito.php',
@@ -390,6 +391,7 @@ class ComposerStaticInitc642cebbf5fe311085f5be1bf28aa3c3
         'App\\Http\\Controllers\\Auth\\RegisterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/RegisterController.php',
         'App\\Http\\Controllers\\Auth\\ResetPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ResetPasswordController.php',
         'App\\Http\\Controllers\\Auth\\VerificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerificationController.php',
+        'App\\Http\\Controllers\\ColegiaturaController' => __DIR__ . '/../..' . '/app/Http/Controllers/ColegiaturaController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\HitoController' => __DIR__ . '/../..' . '/app/Http/Controllers/HitoController.php',
         'App\\Http\\Controllers\\ProvedorController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProvedorController.php',

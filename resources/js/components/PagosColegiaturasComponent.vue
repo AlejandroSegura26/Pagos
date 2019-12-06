@@ -9,11 +9,8 @@
         <div class="container-fluid">
             <div class="card">
                 <div class="card-header">
-                    <i class="fa fa-thumbtack"></i>&nbsp;&nbsp;Colegiaturas&nbsp;
-                    <button type="button" @click="abrirModal('registrar',0)" class="btn btn-secondary float-right">
-                        <i class="fa fa-plus"></i>&nbsp;Nuevo
-                    </button>
-           
+                    <i class="fa fa-thumbtack"></i>&nbsp;&nbsp;Pago de colegiaturas&nbsp;
+          
                 </div>
                 <div class="card-body">
                     <div class="form-group row">
@@ -34,8 +31,9 @@
                     <table class="table table-bordered table-striped table-sm">
                         <thead>
                             <tr>
-                                <th>Opciones</th>
+                                <th>Pagar</th>
                                 <th>Periodo</th>
+                                <th>Alumno</th>
                                 <th>Monto</th>
                                 <th>Estado</th>
                             </tr>
@@ -61,8 +59,9 @@
 
 
                                 </td>
+
                                 <td v-text="colegiatura.periodo"></td>
-                                 
+                                 <td v-text="colegiatura.nombre"></td>                                 
                                 <td v-text="colegiatura.monto"></td>
                                 
                                   <template v-if="colegiatura.estado">
@@ -89,68 +88,11 @@
                     </nav>
                 </div>
             </div>
-            <!-- Fin de Listado Usuarios -->
-
-            <template style="margin-top:10px;" v-if="menu==15">
-                <tareas-component></tareas-component>
-            </template>
+            
 
 
         </div>
-        <!--Inicio del modal agregar/actualizar-->
-        <div class="modal fade" tabindex="-1" :class="{'mostrar' : modal}" role="dialog" aria-labelledby="myModalLabel"
-            style="display: none; overflow-y: scroll; padding-top: 55px;" aria-hidden="true">
-            <div class="modal-dialog modal-primary modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title" v-text="tituloModal"></h4>
-                        <button type="button" class="close" @click="cerrarModal()" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form v-if="tipoAccion != 3" action="" method="post" enctype="multipart/form-data" class="form-horizontal">
-                
-                            <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">Perido</label>
-                                <div class="col-md-9">
-                                    <input type="text" v-model="periodo" class="form-control"
-                                        placeholder="Ingrese el periodo del alumno">
-                                </div>
-                            </div>
-                                <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">Monto</label>
-                                <div class="col-md-9">
-                                    <input type="text" v-model="monto" class="form-control"
-                                        placeholder="Ingrese el monto de la colegiatura">
-                                </div>
-                            </div>
-                           
-                     
-                          
-                            
-                            <div v-show="errorAlumno" class="form-group row div-error">
-                                <div class="text-center text-error">
-                                    <div v-for="error in errorMostrarMsjAlumno" :key="error" v-text="error"></div>
-                                </div>
-                            </div>
-                        </form>
-
-                   
-                    </div>
-                    <div class="modal-footer">
-                        <span><b>(*)</b>&nbsp;Campo obligatorio de ingresar</span>
-                        <button type="button" class="btn btn-secondary" @click="cerrarModal()">Cerrar</button>
-                        <button type="button" v-if="tipoAccion==1" class="btn btn-success" @click="registrarcolegiatura()">Guardar</button>
-                        <button type="button" v-if="tipoAccion==2" class="btn btn-warning" @click="actualizarcolegiatura()">Actualizar</button>
-                        
-                    </div>
-                </div>
-                <!-- /.modal-content -->
-            </div>
-            <!-- /.modal-dialog -->
-        </div>
-        <!--Fin del modal-->
+      
     </main>
 </template>
 
@@ -160,15 +102,9 @@
         data() {
             return {
             id:0,
-            periodo:'',
-            monto:'',
-            arraycolegiatura:[],
-            modal: 0,
-            tituloModal:'',
+            
             menu:0,
-            tipoAccion: 0,
-            errorAlumno: 0,
-            errorMostrarMsjAlumno:[],
+           arraycolegiatura:[],
             pagination: 
             {
               'total': 0,
@@ -218,7 +154,7 @@
             listarcolegiaturaes(page,buscar,criterio) {
               let me = this;
                 //Se le asigna a la ruta '/cliente' los parametros 'buscar' y 'criterio' mediante el metodo get que se utiliza para buscar un registro de acuerdo a lo que ha ingresado el usuario en el input para buscar
-                var url = '/colegiatura?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
+                var url = '/pagoColegiatura?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
                 axios.get(url).then(function (response) {
                     //Se crea una variable respuesta que guardara los datos de la consulta mediante ajax
                     var respuesta = response.data;
@@ -241,138 +177,8 @@
                 me.listarcolegiaturaes(page,buscar,criterio);
             },
          
-            registrarcolegiatura() {
-                if (this.validarcolegiatura()) {
-                    return;
-                }
-                let me = this;
-                 axios.post('/colegiatura/registrar',{
-                 'periodo':this.periodo,
-                 'monto':this.monto,
-               
-                }).then(function (response) {
-           
-                  me.cerrarModal();
-                    me.listarcolegiaturaes(1,'','titulo');
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
-            },
             
-            actualizarcolegiatura() {
-                  if (this.validarcolegiatura()) {
-                    return;
-                }
-                let me = this;
-                
-                axios.put('/colegiatura/actualizar',{
-                 'periodo':this.periodo,
-                 'monto':this.monto,
-                
-                  'id':this.id
-                }).then(function (response) {
-                  
-                     me.cerrarModal();
-                    me.listarcolegiaturaes(1,'','titulo');
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
-            },
             
-                 validarcolegiatura() {
-              this.errorProyecto = 0;
-              this.errorMostrarMsjAlumno = [];
-              if (!this.periodo) this.errorMostrarMsjAlumno.push("Ingresar el perido de la colegiatura");
-              if (!this.monto) this.errorMostrarMsjAlumno.push("Ingresar el monto de la colegiatura ");  
-               if (this.errorMostrarMsjAlumno.length) this.errorAlumno = 1;
-                return this.errorAlumno;
-            },
-         
-              abrirModal(accion, data = [],id) {
-                switch (accion) 
-                {
-                    case 'registrar':
-                    {
-                        this.modal = 1;
-                        this.tituloModal = 'Registrar colegiatura';
-                        this.tipoAccion = 1;
-                        this.periodo="";
-                        this.monto="";
-                        
-                        break;
-                    }
-                    case 'actualizar':
-                    {
-                        this.modal = 1;
-                        this.id=id;
-                        this.tituloModal = 'Actualizar colegiatura';
-                        this.tipoAccion = 2;
-                        this.periodo=data["periodo"];
-                        this.monto=data["monto"];
-                      
-                        break;
-                      }        
-                  }
-            },
-             cerrarModal() {
-                this.modal = 0;
-                this.tituloModal = '';
-                this.errorAlumno= 0;
-            },
-            
-            desactivarcolegiatura(id) {
-                const swalWithBootstrapButtons = Swal.mixin({
-                    customClass: {
-                        confirmButton: 'btn btn-success',
-                        cancelButton: 'btn btn-danger'
-                    },
-                    buttonsStyling: false
-                })
-                swalWithBootstrapButtons.fire({
-                    title: '¿Estás seguro de desactivar este colegiatura?     ',
-                    type: 'warning',
-                    showCancelButton: true,
-                    confirmButtonText: 'Aceptar',
-                    cancelButtonText: 'Cancelar',
-                    reverseButtons: true
-                }).then((result) => {
-                    if (result.value) {
-                        let me = this;
-                        //Mediante axios se hace una peticion mediante ajax gracias a la ruta '/categoria/desactivar' para llamar al controlador y ejecutar la tarea correspondiente
-                        axios.post('/colegiatura/desactivar',{
-                            'id':id,
-                        }).then(function (response) {
-                          
-                           if(response.data==1)
-                             {
-                              swalWithBootstrapButtons.fire(
-                            '¡finalizado!',
-                            'El colegiatura ha sido desactivad con éxito.',
-                            'success'
-                            ) 
-                               me.listarcolegiaturaes(1,'','titulo');
-                             }
-                          else
-                            {
-                                  swalWithBootstrapButtons.fire(
-                          
-                            'No puede finalzar este proyecto ya que tiene tareas activas.',
-                           
-                            ) 
-                            }
-                        })
-                        .catch(function (error) {
-                            console.log(error);
-                        });
-                    } else if (
-                        /* Read more about handling dismissals below */
-                        result.dismiss === Swal.DismissReason.cancel
-                    ) {
-                    }
-                })
-            },
          
          activarcolegiatura(id) {
                 const swalWithBootstrapButtons = Swal.mixin({

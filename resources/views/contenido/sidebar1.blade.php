@@ -35,6 +35,14 @@
             <span>Colegiaturas</span>
           </a>
         </li>
+      
+            <!-- Nav Item - Usuarios -->
+        <li @click="menu=3" class="nav-item">
+          <a class="nav-link" href="#">
+            <i class="fas fa-fw fa-user"></i>
+            <span>Pago Colegiaturas</span>
+          </a>
+        </li>
              <!-- Nav Item - Usuarios -->
         <li @click="menu=3" class="nav-item">
           <a class="nav-link" href="#">
@@ -61,7 +69,7 @@
         <li @click="menu=7" class="nav-item">
           <a class="nav-link" href="#">
             <i class="fas fa-fw fa-user"></i>
-            <span>Pago de servicios</span>
+            <span>Historial de pagos de servicios</span>
           </a>
         </li>
       
