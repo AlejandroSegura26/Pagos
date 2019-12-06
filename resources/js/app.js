@@ -8,8 +8,9 @@ Vue.component('hitos-component', require('./components/HitosComponent.vue').defa
 Vue.component('tareas-component', require('./components/AlumnosComponent.vue').default);
 Vue.component('alum', require('./components/AlumnosComponent.vue').default);
 Vue.component('colegiaturas', require('./components/ColegiaturasComponent.vue').default);
- Vue.component('servicios', require('./components/ServiciosComponent.vue').default);
+Vue.component('servicios', require('./components/ServiciosComponent.vue').default);
 Vue.component('pagoscolegiaturas', require('./components/PagosColegiaturasComponent.vue').default);
+Vue.component('estadocuenta', require('./components/EstadoCuentaComponent.vue').default);
 const app = new Vue({
     el: '#app',
     data: {

@@ -23,7 +23,7 @@ BEGIN
             IF done THEN
                 LEAVE ins_loop;
             END IF;
-            INSERT INTO pagosColegiaturas(alumno_id,colegiatura_id,estado) VALUES (ids, NEW.id,1);
+            INSERT INTO pagosColegiaturas(alumno_id,colegiatura_id,estado) VALUES (ids, NEW.id,0);
         END LOOP;
     CLOSE cur;
 END; //

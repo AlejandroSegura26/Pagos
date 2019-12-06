@@ -55,12 +55,7 @@
                                             <i class="far fa-eye-slash"></i>
                                         </button>&nbsp;
                                     </template>
-                                    <template v-else>
-                                        <button type="button" class="btn btn-info btn-sm" @click="activarAlumno(alumno.id)">
-                                            <i class="far fa-eye"></i>Activar
-                                        </button>
-                                    </template>
-
+                                    
 
                                 </td>
                                 <td v-text="alumno.nombre"></td>
@@ -381,7 +376,7 @@
                             {
                                   swalWithBootstrapButtons.fire(
                           
-                            'No puede finalzar este proyecto ya que tiene tareas activas.',
+                            'No puede desactivar este alumno ya que tiene pagos activos.',
                            
                             ) 
                             }
@@ -397,48 +392,7 @@
                 })
             },
          
-         activarAlumno(id) {
-                const swalWithBootstrapButtons = Swal.mixin({
-                    customClass: {
-                        confirmButton: 'btn btn-success',
-                        cancelButton: 'btn btn-danger'
-                    },
-                    buttonsStyling: false
-                })
-                swalWithBootstrapButtons.fire({
-                    title: '¿Estás seguro de activar este alumno?',
-                    type: 'warning',
-                    showCancelButton: true,
-                    confirmButtonText: 'Aceptar',
-                    cancelButtonText: 'Cancelar',
-                    reverseButtons: true
-                }).then((result) => {
-                    if (result.value) {
-                        let me = this;
-                        //Mediante axios se hace una peticion mediante ajax gracias a la ruta '/categoria/activar' para llamar al controlador y ejecutar la tarea correspondiente
-                        axios.post('/alumno/activar',{
-                            //Se le asignan los valores recopilados de los inputs del modal
-                            'id': id
-                        }).then(function (response) {
-                            //Se llama al metodo para enlistar las categorias y se muestra un mensaje mediante sweetalert
-                         
-                            swalWithBootstrapButtons.fire(
-                            '¡Activado!',
-                            'El alumno ha sido activado con éxito.',
-                            'success'
-                            )
-                           me.listarAlumnos(1,'','titulo');
-                        })
-                        .catch(function (error) {
-                            console.log(error);
-                        });
-                    } else if (
-                        /* Read more about handling dismissals below */
-                        result.dismiss === Swal.DismissReason.cancel
-                    ) {
-                    }
-                })
-            },
+        
         },
          mounted() {
 

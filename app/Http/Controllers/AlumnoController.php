@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Alumno;
+use App\PagoColegiatura;
 class AlumnoController extends Controller
 {
     public function index(Request $request)
@@ -67,22 +68,21 @@ class AlumnoController extends Controller
     public function desactivar(Request $request)
      {
         if (!$request->ajax()) return redirect('/'); 
-          $alumno = Alumno :: findOrFail($request->id);
-    
+          $colegiatura =PagoColegiatura::select('pagosColegiaturas.id')
+            ->where('pagosColegiaturas.alumno_id','=',$request->id)
+            ->where('pagosColegiaturas.estado','=',0)->count();
+      if($colegiatura>0)
+        return 0;
+      else
+      {
+        $alumno = Alumno :: findOrFail($request->id);
          $alumno -> estado = 0;
          $alumno -> save();
-        
+        return 1;
+       } 
       }
     
-     public function activar(Request $request)
-     {
-        if (!$request->ajax()) return redirect('/'); 
-          $alumno = Alumno :: findOrFail($request->id);
     
-         $alumno -> estado =1;
-         $alumno -> save();
-        
-      }
   
  
 }

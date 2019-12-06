@@ -29,15 +29,7 @@
         </template>
         <!-- Proyectos -->
         <template v-if="menu==7">
-    <h1>Administrador / 8</h1>
+        <estadocuenta></estadocuenta>
         </template>
-        <!-- Servicios -->
-        <template v-if="menu==8">
-         <h1>Administrador / 8</h1>
-        </template>
-      <template v-if="menu==9">
-         <h1>Administrador / 8</h1>
-        </template>
-     
-     
+ 
 @endsection

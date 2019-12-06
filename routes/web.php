@@ -39,7 +39,6 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/alumno','AlumnoController@index');
   Route::put('/alumno/actualizar','AlumnoController@update');
   Route::post('/alumno/desactivar','AlumnoController@desactivar');
-  Route::post('/alumno/activar','AlumnoController@activar');
   
   Route::post('/provedor/registrar','ProvedorController@store');
   Route::get('/provedor','ProvedorController@index');
@@ -54,5 +53,6 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('/colegiatura/activar','ColegiaturaController@activar');
   
   Route::get('/pagoColegiatura','PagoColegiaturaController@index');
+  Route::post('/pagoColegiatura/pagar','PagoColegiaturaController@pagar');
 });
 

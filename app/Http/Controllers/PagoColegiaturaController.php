@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\PagoColegiatura;
 use App\Alumno;
+use App\Movimiento;
+use App\Cartera;
 class PagoColegiaturaController extends Controller
 {
       public function index(Request $request)
@@ -16,7 +18,7 @@ class PagoColegiaturaController extends Controller
         {
              $colegiatura =PagoColegiatura::join('alumnos','alumnos.id','=','pagosColegiaturas.alumno_id')
                ->join('colegiaturas','colegiaturas.id','=','pagosColegiaturas.colegiatura_id')
-          ->select('colegiaturas.periodo','alumnos.nombre','colegiaturas.monto','pagosColegiaturas.estado')
+          ->select('pagosColegiaturas.id','colegiaturas.periodo','alumnos.nombre','colegiaturas.monto','pagosColegiaturas.estado')
               ->orderBy('pagosColegiaturas.id','desc')
             ->paginate(5);
         }
@@ -26,7 +28,7 @@ class PagoColegiaturaController extends Controller
              ->orderBy('colegiaturas.id','desc')
             ->paginate(5); 
         }
-
+ 
            return [
                'pagination' => [
                    'total' => $colegiatura->total(),
@@ -39,4 +41,22 @@ class PagoColegiaturaController extends Controller
                'colegiatura' => $colegiatura
            ];
        }
+  
+  
+  public function pagar(Request $request)
+  {
+       if (!$request->ajax()) return redirect('/');
+        $colegiatura = PagoColegiatura :: findOrFail($request->id);
+        $colegiatura->estado=1;
+        $colegiatura -> save();
+        $movimientos = new Movimiento();
+        $movimientos -> tipoMovimiento =  "Deposito";
+        $movimientos -> asunto =  "Colegiatura";
+        $movimientos -> originario = $request -> nombre;
+        $movimientos -> monto = $request -> monto;
+        $movimientos -> save();
+        $cartera = Cartera :: findOrFail('1');
+        $cartera->saldo=$cartera->saldo+$request->monto;
+        $cartera->save();
+  }
 }

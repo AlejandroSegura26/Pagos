@@ -65,16 +65,9 @@
           </a>
         </li>
       
-       <!-- Nav Item - Usuarios -->
-        <li @click="menu=7" class="nav-item">
-          <a class="nav-link" href="#">
-            <i class="fas fa-fw fa-user"></i>
-            <span>Historial de pagos de servicios</span>
-          </a>
-        </li>
-      
+ 
              <!-- Nav Item - Usuarios -->
-        <li @click="menu=8" class="nav-item">
+        <li @click="menu=7" class="nav-item">
           <a class="nav-link" href="#">
             <i class="fas fa-fw fa-user"></i>
             <span>Estado de cuenta</span>

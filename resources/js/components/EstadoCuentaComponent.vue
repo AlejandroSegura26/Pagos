@@ -3,13 +3,13 @@
         <!-- Breadcrumb -->
         <ol class="breadcrumb col-lg-12">
             <li class="breadcrumb-item"><a href="/principal">Tablero</a></li>
-            <li class="breadcrumb-item"><a @click="menu=5" href="#">Colegiaturas</a></li>
+            <li class="breadcrumb-item"><a @click="menu=5" href="#">Estado de cuenta</a></li>
             
         </ol>
         <div class="container-fluid">
             <div class="card">
                 <div class="card-header">
-                    <i class="fa fa-thumbtack"></i>&nbsp;&nbsp;Pago de colegiaturas&nbsp;
+                    <i class="fa fa-thumbtack"></i>&nbsp;&nbsp;Estado de cuenta&nbsp;
           
                 </div>
                 <div class="card-body">
@@ -31,31 +31,19 @@
                     <table class="table table-bordered table-striped table-sm">
                         <thead>
                             <tr>
-                                <th>Pagar</th>
-                                <th>Periodo</th>
-                                <th>Alumno</th>
+                                <th>Movimiento</th>
+                                <th>Asunto</th>
+                                <th>Originario</th>
                                 <th>Monto</th>
-                                <th>Estado</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr v-for="colegiatura in arraycolegiatura" :key="colegiatura.id">
-                                <td>
-                                   <template v-if="!colegiatura.estado">
-                                        <button type="button" class="btn btn-danger btn-sm" @click="pagar(colegiatura)">
-                                            <i class="far fa-eye-slash"></i>
-                                        </button>&nbsp;
-                                    </template>
-                                </td>
+                            
                                 <td v-text="colegiatura.periodo"></td>
                                 <td v-text="colegiatura.nombre"></td>                                 
                                 <td v-text="colegiatura.monto"></td>
-                                  <template v-if="colegiatura.estado">
-                                     <td  >Pagado</td>
-                                   </template>     
-                                    <template v-else>
-                                            <td  >Adeudo</td>
-                                    </template>
+                               
                             </tr>
                         </tbody>
                     </table>
@@ -164,53 +152,6 @@
             },
          
             
-            
-         
-         pagar(colegiatura) {
-                const swalWithBootstrapButtons = Swal.mixin({
-                    customClass: {
-                        confirmButton: 'btn btn-success',
-                        cancelButton: 'btn btn-danger'
-                    },
-                    buttonsStyling: false
-                })
-                swalWithBootstrapButtons.fire({
-                    title: '¿Estás seguro de hacer este pago?',
-                    type: 'warning',
-                    showCancelButton: true,
-                    confirmButtonText: 'Aceptar',
-                    cancelButtonText: 'Cancelar',
-                    reverseButtons: true
-                }).then((result) => {
-                    if (result.value) {
-                        let me = this;
-                        //Mediante axios se hace una peticion mediante ajax gracias a la ruta '/categoria/activar' para llamar al controlador y ejecutar la tarea correspondiente
-                        axios.post('/pagoColegiatura/pagar',{
-                            //Se le asignan los valores recopilados de los inputs del modal
-                            'id': colegiatura.id,
-                            'nombre':colegiatura.nombre,
-                            'monto':colegiatura.monto
-                          
-                        }).then(function (response) {
-                            //Se llama al metodo para enlistar las categorias y se muestra un mensaje mediante sweetalert
-                         
-                            swalWithBootstrapButtons.fire(
-                            '¡Activado!',
-                            'El pago ha sido realizado con éxito.',
-                            'success'
-                            )
-                           me.listarcolegiaturaes(1,'','titulo');
-                        })
-                        .catch(function (error) {
-                            console.log(error);
-                        });
-                    } else if (
-                        /* Read more about handling dismissals below */
-                        result.dismiss === Swal.DismissReason.cancel
-                    ) {
-                    }
-                })
-            },
         },
          mounted() {
 

@@ -17,8 +17,9 @@ class AlumnosTable extends Migration
             $table->datetime('fecha_nacimiento');
             $table->boolean('estado')->default(1);
         });
-          }
         
+          }
+       
         public function down()
         {
             Schema::dropIfExists('alumnos');
