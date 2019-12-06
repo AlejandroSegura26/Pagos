@@ -44,7 +44,7 @@
                         <tbody>
                             <tr v-for="provedor in arrayProvedor" :key="provedor.id">
                                 <td>
-                                      <button type="button" @click="abrirModal('actualizar',provedor,provedor.id)" class="btn btn-warning btn-sm">
+                                      <button type="button" @click="abrirModal('actualizar',provedor)" class="btn btn-warning btn-sm">
                                         <i class="fas fa-pen"></i>
                                     </button> &nbsp;
                                      
@@ -59,6 +59,11 @@
                                             <i class="far fa-eye"></i>Activar
                                         </button>
                                     </template>
+
+                                   <button type="button" @click="abrirModal('pagar',provedor)" class="btn btn-warning btn-sm">
+                                        <i class="fas fa-pen"></i>
+                                    </button> &nbsp;
+                                     
 
 
                                 </td>
@@ -110,48 +115,71 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form v-if="tipoAccion != 3" action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+                     
+ 
+                            <form v-if="tipoAccion <3" action="" method="post" enctype="multipart/form-data" class="form-horizontal">
                 
                             <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
+                                <label class="col-md-3 form-control-label" for="text-input">Provedor</label>
                                 <div class="col-md-9">
                                     <input type="text" v-model="nombre" class="form-control"
                                         placeholder="Ingrese el nombre del alumno">
                                 </div>
                             </div>
-                                <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">Telefono</label>
-                                <div class="col-md-9">
-                                    <input type="text" v-model="telefono" class="form-control"
-                                        placeholder="Ingrese el telefono del alumno">
-                                </div>
-                            </div>
-                          
-                             <div class="form-group row">
+                          <div class="form-group row">
                                 <label class="col-md-3 form-control-label" for="text-input">Direccion</label>
                                 <div class="col-md-9">
                                     <input type="text" v-model="direccion" class="form-control"
                                         placeholder="Ingrese el correo electronico del alumno">
                                 </div>
                             </div> 
-                     
-                          
+                           <div class="form-group row">
+                                <label class="col-md-3 form-control-label" for="text-input">Telefono</label>
+                                <div class="col-md-9">
+                                    <input type="text" v-model="telefono" class="form-control"
+                                        placeholder="Ingrese el telefono del alumno">
+                                </div>
+                            </div>
                             
+                    
                             <div v-show="errorAlumno" class="form-group row div-error">
                                 <div class="text-center text-error">
                                     <div v-for="error in errorMostrarMsjAlumno" :key="error" v-text="error"></div>
                                 </div>
                             </div>
                         </form>
-
-                   
+                         <form v-if="tipoAccion ==3" action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+                
+                            <div class="form-group row">
+                                <label class="col-md-3 form-control-label" for="text-input">Provedor</label>
+                                <div class="col-md-9">
+                                    <input type="text" v-model="nombre" class="form-control"
+                                        placeholder="Ingrese el nombre del alumno">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-3 form-control-label" for="text-input">Monto</label>
+                                <div class="col-md-9">
+                                    <input type="text" v-model="cantidad" class="form-control"
+                                        placeholder="Ingrese el nombre del alumno">
+                                </div>
+                            </div>
+                           
+                            
+                    
+                            <div v-show="errorAlumno" class="form-group row div-error">
+                                <div class="text-center text-error">
+                                    <div v-for="error in errorMostrarMsjAlumno" :key="error" v-text="error"></div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                     <div class="modal-footer">
                         <span><b>(*)</b>&nbsp;Campo obligatorio de ingresar</span>
                         <button type="button" class="btn btn-secondary" @click="cerrarModal()">Cerrar</button>
                         <button type="button" v-if="tipoAccion==1" class="btn btn-success" @click="registrarProvedor()">Guardar</button>
                         <button type="button" v-if="tipoAccion==2" class="btn btn-warning" @click="actualizarProvedor()">Actualizar</button>
-                        
+                        <button type="button" v-if="tipoAccion==3" class="btn btn-warning" @click="pago()">Actualizar</button>
                     </div>
                 </div>
                 <!-- /.modal-content -->
@@ -171,6 +199,7 @@
             nombre:'',
             telefono:'',
             direccion:'',
+            cantidad:'',
             arrayProvedor:[],
             modal: 0,
             tituloModal:'',
@@ -299,11 +328,12 @@
                 return this.errorAlumno;
             },
          
-              abrirModal(accion, data = [],id) {
+              abrirModal(accion, data = []) {
                 switch (accion) 
                 {
                     case 'registrar':
                     {
+                      this.tipoAccion=1;
                         this.modal = 1;
                         this.tituloModal = 'Registrar provedor';
                         this.tipoAccion = 1;
@@ -314,21 +344,36 @@
                     }
                     case 'actualizar':
                     {
+                      this.tipoAccion=2;
                         this.modal = 1;
-                        this.id=id;
+                        this.id=data['id'];
                         this.tituloModal = 'Actualizar provedor';
                         this.tipoAccion = 2;
                         this.nombre=data["nombre"];
                         this.telefono=data["telefono"];
-                        this.direccion==data["direccion"];
+                        this.direccion=data["direccion"];
                         break;
-                      }        
+                      }   
+                    case 'pagar':
+                    {
+                      this.tipoAccion=3;
+                      this.modal = 1;
+                       this.tituloModal = 'Pago de servicio';
+                        this.id=data['id'];
+                        this.nombre=data["nombre"];
+                        this.cantidad=0;
+                        break;
+                      }  
                   }
             },
              cerrarModal() {
                 this.modal = 0;
                 this.tituloModal = '';
                 this.errorAlumno= 0;
+                this.nombre="";
+                this.telefono="";
+                this.direccion="";
+                this.cantidad=0;
             },
             
             desactivarProvedores(id) {
@@ -354,23 +399,15 @@
                             'id':id,
                         }).then(function (response) {
                           
-                           if(response.data==1)
-                             {
+                            
                               swalWithBootstrapButtons.fire(
                             '¡finalizado!',
-                            'El provedor ha sido desactivad con éxito.',
+                            'El provedor ha sido desactivado con éxito.',
                             'success'
                             ) 
                                me.listarProvedores(1,'','titulo');
-                             }
-                          else
-                            {
-                                  swalWithBootstrapButtons.fire(
-                          
-                            'No puede finalzar este proyecto ya que tiene tareas activas.',
-                           
-                            ) 
-                            }
+                             
+                         
                         })
                         .catch(function (error) {
                             console.log(error);
@@ -383,7 +420,7 @@
                 })
             },
          
-         Provedores(id) {
+         activarProvedores(id) {
                 const swalWithBootstrapButtons = Swal.mixin({
                     customClass: {
                         confirmButton: 'btn btn-success',
@@ -414,6 +451,65 @@
                             'success'
                             )
                            me.listarProvedores(1,'','titulo');
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+                    } else if (
+                        /* Read more about handling dismissals below */
+                        result.dismiss === Swal.DismissReason.cancel
+                    ) {
+                    }
+                })
+            },
+          
+           
+         pago() {
+                const swalWithBootstrapButtons = Swal.mixin({
+                    customClass: {
+                        confirmButton: 'btn btn-success',
+                        cancelButton: 'btn btn-danger'
+                    },
+                    buttonsStyling: false
+                })
+                swalWithBootstrapButtons.fire({
+                    title: '¿Estás seguro de hacer este pago?',
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Aceptar',
+                    cancelButtonText: 'Cancelar',
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.value) {
+                        let me = this;
+                        //Mediante axios se hace una peticion mediante ajax gracias a la ruta '/categoria/activar' para llamar al controlador y ejecutar la tarea correspondiente
+                        axios.post('/provedor/pagar',{
+                            //Se le asignan los valores recopilados de los inputs del modal
+                            'id': this.id,
+                            'nombre':this.nombre,
+                            'monto':this.cantidad
+                          
+                        }).then(function (response) {
+                            //Se llama al metodo para enlistar las categorias y se muestra un mensaje mediante sweetalert
+                         
+                        if(response.data==1)
+                        {
+                               swalWithBootstrapButtons.fire(
+                            '¡Pagado!',
+                            'El pago ha sido realizado con éxito.',
+                            'success'
+                            )    
+                        }
+                          else
+                         {
+                                swalWithBootstrapButtons.fire(
+                            '¡Error!',
+                            'No puede realizar el pago ya que no cuenta con saldo suficiente.',
+                            'error'
+                            )
+                         }
+                           me.listarProvedores(1,'','titulo');
+                           me.cerrarModal();
                         })
                         .catch(function (error) {
                             console.log(error);

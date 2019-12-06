@@ -17,11 +17,10 @@
         </template>
         <!-- Boletos -->
         <template v-if="menu==4">
-           <h1>Administrador / 8</h1>
+            <compras></compras>
         </template>
-        <!-- Problemas -->
-        <template v-if="menu==5">
-          <h1>Administrador / 8</h1>
+      <template v-if="menu==5">
+           <rentas></rentas>
         </template>
         <!-- Métodos de Pago -->
         <template v-if="menu==6">

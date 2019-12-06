@@ -45,6 +45,7 @@ Route::group(['middleware' => ['auth']], function () {
   Route::put('/provedor/actualizar','ProvedorController@update');
   Route::post('/provedor/desactivar','ProvedorController@desactivar');
   Route::post('/provedor/activar','ProvedorController@activar');
+  Route::post('/provedor/pagar','ProvedorController@pagar');
   
   Route::post('/colegiatura/registrar','ColegiaturaController@store');
   Route::get('/colegiatura','ColegiaturaController@index');
@@ -56,5 +57,16 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('/pagoColegiatura/pagar','PagoColegiaturaController@pagar');
   
   Route::get('/movimiento','movimientoController@index');
+  
+  Route::get('/renta','RentaController@index');
+  Route::post('/renta/registrar','RentaController@store');
+  Route::put('/renta/actualizar','RentaController@update');
+  Route::post('/renta/desactivar','RentaController@desactivar');
+  Route::post('/renta/activar','RentaController@activar');
+  Route::post('/renta/pagar','RentaController@pagar');
+  
+   Route::post('/compra/registrar','CompraController@store');
+   Route::get('/compra','CompraController@index');
+    Route::post('/renta/desactivar','CompraController@desactivar');
 });
 

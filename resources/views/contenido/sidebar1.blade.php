@@ -43,20 +43,20 @@
             <span>Pago Colegiaturas</span>
           </a>
         </li>
-             <!-- Nav Item - Usuarios -->
-        <li @click="menu=3" class="nav-item">
+              <li @click="menu=4" class="nav-item">
           <a class="nav-link" href="#">
             <i class="fas fa-fw fa-user"></i>
-            <span>Rentas</span>
+            <span>Compras</span>
           </a>
         </li>
              <!-- Nav Item - Usuarios -->
         <li @click="menu=5" class="nav-item">
           <a class="nav-link" href="#">
             <i class="fas fa-fw fa-user"></i>
-            <span>Pago de rentas</span>
+            <span>Rentas</span>
           </a>
         </li>
+ 
              <!-- Nav Item - Usuarios -->
         <li @click="menu=6" class="nav-item">
           <a class="nav-link" href="#">

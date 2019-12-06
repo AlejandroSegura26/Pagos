@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Provedor;
+use App\Movimiento;
+use App\Cartera;
 class ProvedorController extends Controller
 {
      public function index(Request $request)
@@ -79,4 +81,30 @@ class ProvedorController extends Controller
          $provedor -> save();
         
       }
+  
+    
+  public function pagar(Request $request)
+  {
+       if (!$request->ajax()) return redirect('/');
+        $cartera = Cartera :: findOrFail('1');
+        if($request->monto<$cartera->saldo)
+        {
+          $movimientos = new Movimiento();
+          $movimientos -> tipoMovimiento =  "Salida";
+          $movimientos -> asunto =  "Retiro";
+          $movimientos -> originario = $request -> nombre;
+          $movimientos -> monto = $request -> monto;
+          $movimientos -> save();
+          $cartera->saldo=$cartera->saldo-$request->monto;
+          $cartera->save();
+          return 1;
+        }
+        else
+        {
+          return 0;
+        }
+        
+        
+       
+  }
 }

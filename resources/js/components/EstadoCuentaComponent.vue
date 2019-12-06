@@ -142,8 +142,8 @@
                     me.arraymovimiento = respuesta.movimiento.data;
                     //Guarda en el arreglo 'pagination' las variables necesarias para llevar a cabo estas tareas
                     me.pagination = respuesta.pagination;
-                    this.saldo=respuesta.saldo;
-                  console.log(respuesta.saldo)
+                    me.saldo=respuesta.saldo;
+                 
                 })
                 .catch(function (error) {
                     console.log(error);

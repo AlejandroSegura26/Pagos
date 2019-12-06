@@ -3,15 +3,15 @@
         <!-- Breadcrumb -->
         <ol class="breadcrumb col-lg-12">
             <li class="breadcrumb-item"><a href="/principal">Tablero</a></li>
-            <li class="breadcrumb-item"><a @click="menu=5" href="#">Alumnos</a></li>
+            <li class="breadcrumb-item"><a @click="menu=5" href="#">Compras</a></li>
             
         </ol>
         <div class="container-fluid">
             <div class="card">
                 <div class="card-header">
-                    <i class="fa fa-thumbtack"></i>&nbsp;&nbsp;Alumnos&nbsp;
+                    <i class="fa fa-thumbtack"></i>&nbsp;&nbsp;Compras&nbsp;
                     <button type="button" @click="abrirModal('registrar',0)" class="btn btn-secondary float-right">
-                        <i class="fa fa-plus"></i>&nbsp;Nuevo
+                        <i class="fa fa-plus"></i>&nbsp;Nueva
                     </button>
            
                 </div>
@@ -21,12 +21,12 @@
                             <div class="input-group">
                                 <select class="form-control col-md-3" v-model="criterio">
                                    <option value="nombre">Nombre</option>
-                                   <option value="correo_electronico">Correo electronico</option>
                                    <option value="telefono">Telefono</option>
+                                  <option value="correo_electronico">direccion</option>
                                 </select>
-                                 <input type="text" v-model="buscar" @keyup.enter="listarAlumnos(1,buscar,criterio)" class="form-control"
+                                 <input type="text" v-model="buscar" @keyup.enter="listarcompra(1,buscar,criterio)" class="form-control"
                                     placeholder="Texto a buscar">
-                                <button type="submit" @click="listarAlumnos(1,buscar,criterio)" class="btn btn-primary"><i class="fa fa-search"></i>
+                                <button type="submit" @click="listarcompra(1,buscar,criterio)" class="btn btn-primary"><i class="fa fa-search"></i>
                                     Buscar</button>
                             </div>
                         </div>
@@ -35,34 +35,28 @@
                         <thead>
                             <tr>
                                 <th>Opciones</th>
-                                <th>Nombre</th>
-                                <th>Correo electronico</th>
-                                <th>Telefono</th>
-                                <th>Fecha de nacimiento</th>
+                                <th>Asunto</th>
+                                <th>Monto</th>
                                 <th>Estado</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="alumno in arrayAlumno" :key="alumno.id">
+                            <tr v-for="compra in arraycompra" :key="compra.id">
                                 <td>
-                                      <button type="button" @click="abrirModal('actualizar',alumno,alumno.id)" class="btn btn-warning btn-sm">
-                                        <i class="fas fa-pen"></i>
-                                    </button> &nbsp;
-                                     
-                                       
-                                        <template v-if="alumno.estado">
-                                        <button type="button" class="btn btn-danger btn-sm" @click="desactivarAlumno(alumno.id)">
+                             
+                                        <template v-if="compra.estado">
+                                        <button type="button" class="btn btn-danger btn-sm" @click="desactivarcompra(compra.id)">
                                             <i class="far fa-eye-slash"></i>
                                         </button>&nbsp;
                                     </template>
-                                    
+                          
+                           
+                                     
 
                                 </td>
-                                <td v-text="alumno.nombre"></td>
-                                <td v-text="alumno.correo_electronico"></td>
-                                <td v-text="alumno.telefono"></td>
-                                <td v-text="alumno.fecha_nacimiento"></td>
-                                  <template v-if="alumno.estado">
+                                <td v-text="compra.asunto"></td>
+                                <td v-text="compra.monto"></td>
+                                  <template v-if="compra.estado">
                                      <td  >Activo</td>
                                    </template>     
                                     <template v-else>
@@ -106,55 +100,40 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form v-if="tipoAccion != 3" action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+                     
+ 
+                            <form  action="" method="post" enctype="multipart/form-data" class="form-horizontal">
                 
                             <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
+                                <label class="col-md-3 form-control-label" for="text-input">Asunto</label>
                                 <div class="col-md-9">
-                                    <input type="text" v-model="nombre" class="form-control"
-                                        placeholder="Ingrese el nombre del alumno">
+                                    <input type="text" v-model="asunto" class="form-control"
+                                        placeholder="Ingrese el asunto de la compra">
                                 </div>
                             </div>
-                             <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">Correo electronico</label>
+                          <div class="form-group row">
+                                <label class="col-md-3 form-control-label" for="text-input">Monto</label>
                                 <div class="col-md-9">
-                                    <input type="email" v-model="correo" class="form-control"
+                                    <input type="text" v-model="monto" class="form-control"
                                         placeholder="Ingrese el correo electronico del alumno">
                                 </div>
                             </div> 
-                           <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">Telefono</label>
-                                <div class="col-md-9">
-                                    <input type="text" v-model="telefono" class="form-control"
-                                        placeholder="Ingrese el telefono del alumno">
-                                </div>
-                            </div>
-                          
                            
-                            <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">Fecha de nacimiento<b>(*)</b></label>
-                                <div class="col-md-9">
-
-                                    <input type="date" v-model="fecha   " class="form-control"
-                                        placeholder="Ingrese la fecha de nacimiento del alumno "   min="<?php echo $fecha = date()?>" >
-                                </div>
-                            </div>
                             
+                    
                             <div v-show="errorAlumno" class="form-group row div-error">
                                 <div class="text-center text-error">
                                     <div v-for="error in errorMostrarMsjAlumno" :key="error" v-text="error"></div>
                                 </div>
                             </div>
                         </form>
-
-                   
+                         
                     </div>
                     <div class="modal-footer">
                         <span><b>(*)</b>&nbsp;Campo obligatorio de ingresar</span>
                         <button type="button" class="btn btn-secondary" @click="cerrarModal()">Cerrar</button>
-                        <button type="button" v-if="tipoAccion==1" class="btn btn-success" @click="registrarAlumno()">Guardar</button>
-                        <button type="button" v-if="tipoAccion==2" class="btn btn-warning" @click="actualizarAlumno()">Actualizar</button>
-                        
+                        <button type="button" v-if="tipoAccion==1" class="btn btn-success" @click="registrarCompra()">Guardar</button>
+ 
                     </div>
                 </div>
                 <!-- /.modal-content -->
@@ -171,11 +150,11 @@
         data() {
             return {
             id:0,
-            nombre:'',
-            correo:'',
-            telefono:'',
-            fecha:'',
-            arrayAlumno:[],
+            asunto:'',
+            monto:'',
+            direccion:'',
+            cantidad:'',
+            arraycompra:[],
             modal: 0,
             tituloModal:'',
             menu:0,
@@ -228,15 +207,15 @@
         //Métodos para mostrar, guardar, actualizar, desactivar y activar el usuario
         methods: {
             //Metodo para obtener todos los registros de la bd mediante el uso del controlador definido y en este caso, se tiene tambien la implementacion de la paginacion para ver los registros de acuerdo a lo establecido en el modelo (10 modelos por pagina) y se implementa la busqueda de registros en este metodo debido a que es el que se encarga de mostrar los datos de acuerdo al criterio elegido si es que se ha introducido un texto o mostrar todos los datos en caso de que no sea asi
-            listarAlumnos(page,buscar,criterio) {
+            listarcompra(page,buscar,criterio) {
               let me = this;
                 //Se le asigna a la ruta '/cliente' los parametros 'buscar' y 'criterio' mediante el metodo get que se utiliza para buscar un registro de acuerdo a lo que ha ingresado el usuario en el input para buscar
-                var url = '/alumno?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
-                axios.get(url).then(function (response) {
+                  var url = '/compra?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
+               axios.get(url).then(function (response) {
                     //Se crea una variable respuesta que guardara los datos de la consulta mediante ajax
                     var respuesta = response.data;
                     //Guarda los datos en el arreglo 'arrayUsuario'
-                    me.arrayAlumno = respuesta.alumno.data;
+                    me.arraycompra = respuesta.compra.data;
                     //Guarda en el arreglo 'pagination' las variables necesarias para llevar a cabo estas tareas
                     me.pagination = respuesta.pagination;
                 })
@@ -251,100 +230,68 @@
                 //Actualiza la pagina actual
                 me.pagination.current_page = page;
                 //Envia la peticion para visualizar los datos de esa pagina
-                me.listarAlumnos(page,buscar,criterio);
+                me.listarcompra(page,buscar,criterio);
             },
          
-            registrarAlumno() {
-                if (this.validarAlumno()) {
-                    return;
-                }
-                let me = this;
-                 axios.post('/alumno/registrar',{
-                 'nombre':this.nombre,
-                 'correo':this.correo,
-                 'telefono':this.telefono,
-                 'fecha':this.fecha
-                }).then(function (response) {
-           
-                  me.cerrarModal();
-                    me.listarAlumnos(1,'','titulo');
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
-            },
             
-            actualizarAlumno() {
-                  if (this.validarAlumno()) {
+            actualizarcompra() {
+                  if (this.validarcompra()) {
                     return;
                 }
                 let me = this;
                 
-                axios.put('/alumno/actualizar',{
-                 'nombre':this.nombre,
-                 'correo':this.correo,
-                 'telefono':this.telefono,
-                 'fecha':this.fecha,
+                axios.put('/compra/actualizar',{
+                 'asunto':this.asunto,
+                 'monto':this.monto,
+                 
                   'id':this.id
                 }).then(function (response) {
                      me.cerrarModal();
-                    me.listarAlumnos(1,'','titulo');
+                    me.listarcompra(1,'','titulo');
                 })
                 .catch(function (error) {
                     console.log(error);
                 });
             },
             
-                 validarAlumno() {
+                 validarcompra() {
               this.errorProyecto = 0;
               this.errorMostrarMsjAlumno = [];
-              if (!this.nombre) this.errorMostrarMsjAlumno.push("Ingresar el nombre del alumno");
-              if (!this.correo) this.errorMostrarMsjAlumno.push("Ingresar el correo del alumno.");
-              if (!this.telefono) this.errorMostrarMsjAlumno.push("Ingresar el telefono del alumno ");  
-              if (!this.fecha) this.errorMostrarMsjAlumno.push("Ingresar la fecha de nacimiento del alumno ");
+              if (!this.asunto) this.errorMostrarMsjAlumno.push("Ingresar el asunto de la compra");
+              if (!this.monto) this.errorMostrarMsjAlumno.push("Ingresar el monto de la compra");  
+             
               if (this.errorMostrarMsjAlumno.length) this.errorAlumno = 1;
                 return this.errorAlumno;
             },
          
-              abrirModal(accion, data = [],id) {
+              abrirModal(accion, data = []) {
                 switch (accion) 
                 {
                     case 'registrar':
                     {
+                      this.tipoAccion=1;
                         this.modal = 1;
-                        this.tituloModal = 'Registrar Alumno';
+                        this.tituloModal = 'Registrar compra';
                         this.tipoAccion = 1;
-                        this.nombre="";
-                        this.correo="";
-                        this.telefono="";
-                        this.fecha="";
+                        this.asunto="";
+                        this.monto="";
+                         
                         break;
                     }
-                    case 'actualizar':
-                    {
-                        this.modal = 1;
-                        this.id=id;
-                        this.tituloModal = 'Actualizar Alumno';
-                        this.tipoAccion = 2;
-                        this.nombre=data["nombre"];
-                        this.correo=data["correo_electronico"];
-                        this.telefono=data["telefono"];
-                        this.fecha=data["fecha_nacimiento"];
-                        break;
-                      }        
+                     
+                     
                   }
             },
              cerrarModal() {
                 this.modal = 0;
                 this.tituloModal = '';
-                this.nombre="";
-                this.correo="";
-                this.telefono="";
-                this.fecha="";
                 this.errorAlumno= 0;
+                this.asunto="";
+                this.monto="";
+                this.cantidad=0;
             },
             
-            desactivarAlumno(id) {
+            desactivarcompra(id) {
                 const swalWithBootstrapButtons = Swal.mixin({
                     customClass: {
                         confirmButton: 'btn btn-success',
@@ -353,7 +300,7 @@
                     buttonsStyling: false
                 })
                 swalWithBootstrapButtons.fire({
-                    title: '¿Estás seguro de desactivar este alumno?     ',
+                    title: '¿Estás seguro de desactivar esta compra?     ',
                     type: 'warning',
                     showCancelButton: true,
                     confirmButtonText: 'Aceptar',
@@ -363,27 +310,19 @@
                     if (result.value) {
                         let me = this;
                         //Mediante axios se hace una peticion mediante ajax gracias a la ruta '/categoria/desactivar' para llamar al controlador y ejecutar la tarea correspondiente
-                        axios.post('/alumno/desactivar',{
+                        axios.post('/compra/desactivar',{
                             'id':id,
                         }).then(function (response) {
                           
-                           if(response.data==1)
-                             {
+                            
                               swalWithBootstrapButtons.fire(
                             '¡finalizado!',
-                            'El alumno ha sido desactivad con éxito.',
+                            'El compra ha sido desactivado con éxito.',
                             'success'
                             ) 
-                               me.listarAlumnos(1,'','titulo');
-                             }
-                          else
-                            {
-                                  swalWithBootstrapButtons.fire(
-                          
-                            'No puede desactivar este alumno ya que tiene pagos activos.',
-                           
-                            ) 
-                            }
+                               me.listarcompra(1,'','titulo');
+                             
+                         
                         })
                         .catch(function (error) {
                             console.log(error);
@@ -395,12 +334,69 @@
                     }
                 })
             },
-         
-        
+       
+           
+         registrarCompra() {
+                const swalWithBootstrapButtons = Swal.mixin({
+                    customClass: {
+                        confirmButton: 'btn btn-success',
+                        cancelButton: 'btn btn-danger'
+                    },
+                    buttonsStyling: false
+                })
+                swalWithBootstrapButtons.fire({
+                    title: '¿Estás seguro de hacer este pago?',
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Aceptar',
+                    cancelButtonText: 'Cancelar',
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.value) {
+                        let me = this;
+                        //Mediante axios se hace una peticion mediante ajax gracias a la ruta '/categoria/activar' para llamar al controlador y ejecutar la tarea correspondiente
+                        axios.post('/compra/registrar',{
+                            //Se le asignan los valores recopilados de los inputs del modal
+                            
+                            'asunto':this.asunto,
+                            'monto':this.monto
+                          
+                        }).then(function (response) {
+                            //Se llama al metodo para enlistar las categorias y se muestra un mensaje mediante sweetalert
+                         
+                        if(response.data==1)
+                        {
+                               swalWithBootstrapButtons.fire(
+                            '¡Pagado!',
+                            'El pago ha sido realizado con éxito.',
+                            'success'
+                            )    
+                        }
+                          else
+                         {
+                                swalWithBootstrapButtons.fire(
+                            '¡Error!',
+                            'No puede realizar el pago ya que no cuenta con saldo suficiente.',
+                            'error'
+                            )
+                         }
+                           me.listarcompra(1,'','titulo');
+                           me.cerrarModal();
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+                    } else if (
+                        /* Read more about handling dismissals below */
+                        result.dismiss === Swal.DismissReason.cancel
+                    ) {
+                    }
+                })
+            },
         },
          mounted() {
 
-            this.listarAlumnos(1,this.buscar,this.criterio);
+            this.listarcompra(1,this.buscar,this.criterio);
 
         }
     }

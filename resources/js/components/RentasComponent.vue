@@ -3,13 +3,13 @@
         <!-- Breadcrumb -->
         <ol class="breadcrumb col-lg-12">
             <li class="breadcrumb-item"><a href="/principal">Tablero</a></li>
-            <li class="breadcrumb-item"><a @click="menu=5" href="#">Alumnos</a></li>
+            <li class="breadcrumb-item"><a @click="menu=4" href="#">Rentas</a></li>
             
         </ol>
         <div class="container-fluid">
             <div class="card">
                 <div class="card-header">
-                    <i class="fa fa-thumbtack"></i>&nbsp;&nbsp;Alumnos&nbsp;
+                    <i class="fa fa-thumbtack"></i>&nbsp;&nbsp;Rentas&nbsp;
                     <button type="button" @click="abrirModal('registrar',0)" class="btn btn-secondary float-right">
                         <i class="fa fa-plus"></i>&nbsp;Nuevo
                     </button>
@@ -21,12 +21,12 @@
                             <div class="input-group">
                                 <select class="form-control col-md-3" v-model="criterio">
                                    <option value="nombre">Nombre</option>
-                                   <option value="correo_electronico">Correo electronico</option>
                                    <option value="telefono">Telefono</option>
+                                   <option value="encargado">Encargado</option>
                                 </select>
-                                 <input type="text" v-model="buscar" @keyup.enter="listarAlumnos(1,buscar,criterio)" class="form-control"
+                                 <input type="text" v-model="buscar" @keyup.enter="listarRenteros(1,buscar,criterio)" class="form-control"
                                     placeholder="Texto a buscar">
-                                <button type="submit" @click="listarAlumnos(1,buscar,criterio)" class="btn btn-primary"><i class="fa fa-search"></i>
+                                <button type="submit" @click="listarRenteros(1,buscar,criterio)" class="btn btn-primary"><i class="fa fa-search"></i>
                                     Buscar</button>
                             </div>
                         </div>
@@ -36,38 +36,48 @@
                             <tr>
                                 <th>Opciones</th>
                                 <th>Nombre</th>
-                                <th>Correo electronico</th>
                                 <th>Telefono</th>
-                                <th>Fecha de nacimiento</th>
+                                <th>Encargado</th>
                                 <th>Estado</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="alumno in arrayAlumno" :key="alumno.id">
+                            <tr v-for="renta in arrayRentero" :key="renta.id">
                                 <td>
-                                      <button type="button" @click="abrirModal('actualizar',alumno,alumno.id)" class="btn btn-warning btn-sm">
+                                      <button type="button" @click="abrirModal('actualizar',renta, renta.id)" class="btn btn-warning btn-sm">
                                         <i class="fas fa-pen"></i>
                                     </button> &nbsp;
                                      
                                        
-                                        <template v-if="alumno.estado">
-                                        <button type="button" class="btn btn-danger btn-sm" @click="desactivarAlumno(alumno.id)">
+                                        <template v-if="renta.estado">
+                                        <button type="button" class="btn btn-danger btn-sm" @click="desactivarRenta(renta.id)">
                                             <i class="far fa-eye-slash"></i>
                                         </button>&nbsp;
-                                    </template>
+                                          
+                                        <button type="button" @click="abrirModal('pagar', renta,renta.id)" class="btn btn-warning btn-sm">
+                                        <i class="fas fa-pen"></i>
+                                        </button> &nbsp;
+                                          
+                                        </template>
+                                        <template v-else>
+                                        <button type="button" class="btn btn-danger btn-sm" @click="ActivarRenta(renta.id)">
+                                            <i class="far fa-eye"></i>
+                                        </button>&nbsp;
+                                        </template>
+                                        
                                     
 
                                 </td>
-                                <td v-text="alumno.nombre"></td>
-                                <td v-text="alumno.correo_electronico"></td>
-                                <td v-text="alumno.telefono"></td>
-                                <td v-text="alumno.fecha_nacimiento"></td>
-                                  <template v-if="alumno.estado">
-                                     <td  >Activo</td>
+                                <td v-text="renta.nombre"></td>
+                                <td v-text="renta.telefono"></td>
+                                <td v-text="renta.encargado"></td>
+                                 <td > <template v-if="renta.estado">
+                                     Activo
                                    </template>     
                                     <template v-else>
-                                            <td  >Desactivado</td>
+                                     Desactivado
                                     </template>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -86,12 +96,6 @@
                     </nav>
                 </div>
             </div>
-            <!-- Fin de Listado Usuarios -->
-
-            <template style="margin-top:10px;" v-if="menu==15">
-                <tareas-component></tareas-component>
-            </template>
-
 
         </div>
         <!--Inicio del modal agregar/actualizar-->
@@ -106,55 +110,73 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form v-if="tipoAccion != 3" action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+                        <form  v-if="tipoAccion <3" action="" method="post" enctype="multipart/form-data" class="form-horizontal">
                 
                             <div class="form-group row">
                                 <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
                                 <div class="col-md-9">
                                     <input type="text" v-model="nombre" class="form-control"
-                                        placeholder="Ingrese el nombre del alumno">
+                                        placeholder="Ingrese el nombre del servicio">
                                 </div>
                             </div>
-                             <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">Correo electronico</label>
-                                <div class="col-md-9">
-                                    <input type="email" v-model="correo" class="form-control"
-                                        placeholder="Ingrese el correo electronico del alumno">
-                                </div>
-                            </div> 
+                            
+                            
                            <div class="form-group row">
                                 <label class="col-md-3 form-control-label" for="text-input">Telefono</label>
                                 <div class="col-md-9">
                                     <input type="text" v-model="telefono" class="form-control"
-                                        placeholder="Ingrese el telefono del alumno">
+                                        placeholder="Ingrese el telefono del encargado">
                                 </div>
                             </div>
                           
-                           
-                            <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">Fecha de nacimiento<b>(*)</b></label>
+                             <div class="form-group row">
+                                <label class="col-md-3 form-control-label" for="text-input">Encargado</label>
                                 <div class="col-md-9">
-
-                                    <input type="date" v-model="fecha   " class="form-control"
-                                        placeholder="Ingrese la fecha de nacimiento del alumno "   min="<?php echo $fecha = date()?>" >
+                                    <input type="email" v-model="encargado" class="form-control"
+                                        placeholder="Ingrese el nombre del encargado">
                                 </div>
-                            </div>
+                            </div> 
                             
-                            <div v-show="errorAlumno" class="form-group row div-error">
+                            <div v-show="errorRentero" class="form-group row div-error">
                                 <div class="text-center text-error">
-                                    <div v-for="error in errorMostrarMsjAlumno" :key="error" v-text="error"></div>
+                                    <div v-for="error in errorMostrarMsjRentero" :key="error" v-text="error"></div>
                                 </div>
                             </div>
                         </form>
-
+                        
+                       <form v-if="tipoAccion ==3" action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+                
+                            <div class="form-group row">
+                                <label class="col-md-3 form-control-label" for="text-input">Provedor</label>
+                                <div class="col-md-9">
+                                    <input type="text" v-model="nombre" class="form-control"
+                                        placeholder="Ingrese el nombre del servicio">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-3 form-control-label" for="text-input">Monto</label>
+                                <div class="col-md-9">
+                                    <input type="text" v-model="cantidad" class="form-control"
+                                        placeholder="Ingrese el monto">
+                                </div>
+                            </div>
+                           
+                            
+                    
+                            <div v-show="errorRentero" class="form-group row div-error">
+                                <div class="text-center text-error">
+                                    <div v-for="error in errorMostrarMsjRentero" :key="error" v-text="error"></div>
+                                </div>
+                            </div>
+                        </form>
                    
                     </div>
                     <div class="modal-footer">
                         <span><b>(*)</b>&nbsp;Campo obligatorio de ingresar</span>
                         <button type="button" class="btn btn-secondary" @click="cerrarModal()">Cerrar</button>
-                        <button type="button" v-if="tipoAccion==1" class="btn btn-success" @click="registrarAlumno()">Guardar</button>
-                        <button type="button" v-if="tipoAccion==2" class="btn btn-warning" @click="actualizarAlumno()">Actualizar</button>
-                        
+                        <button type="button" v-if="tipoAccion==1" class="btn btn-success" @click="registrarRentero()">Guardar</button>
+                        <button type="button" v-if="tipoAccion==2" class="btn btn-warning" @click="actualizarRentero()">Actualizar</button>
+                        <button type="button" v-if="tipoAccion==3" class="btn btn-warning" @click="pago()">Pagar</button>
                     </div>
                 </div>
                 <!-- /.modal-content -->
@@ -172,16 +194,15 @@
             return {
             id:0,
             nombre:'',
-            correo:'',
             telefono:'',
-            fecha:'',
-            arrayAlumno:[],
+            encargado:'',
+            arrayRentero:[],
             modal: 0,
             tituloModal:'',
             menu:0,
             tipoAccion: 0,
-            errorAlumno: 0,
-            errorMostrarMsjAlumno:[],
+            errorRentero: 0,
+            errorMostrarMsjRentero:[],
             pagination: 
             {
               'total': 0,
@@ -228,15 +249,15 @@
         //Métodos para mostrar, guardar, actualizar, desactivar y activar el usuario
         methods: {
             //Metodo para obtener todos los registros de la bd mediante el uso del controlador definido y en este caso, se tiene tambien la implementacion de la paginacion para ver los registros de acuerdo a lo establecido en el modelo (10 modelos por pagina) y se implementa la busqueda de registros en este metodo debido a que es el que se encarga de mostrar los datos de acuerdo al criterio elegido si es que se ha introducido un texto o mostrar todos los datos en caso de que no sea asi
-            listarAlumnos(page,buscar,criterio) {
+            listarRenteros(page,buscar,criterio) {
               let me = this;
                 //Se le asigna a la ruta '/cliente' los parametros 'buscar' y 'criterio' mediante el metodo get que se utiliza para buscar un registro de acuerdo a lo que ha ingresado el usuario en el input para buscar
-                var url = '/alumno?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
+                var url = '/renta?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
                 axios.get(url).then(function (response) {
                     //Se crea una variable respuesta que guardara los datos de la consulta mediante ajax
                     var respuesta = response.data;
                     //Guarda los datos en el arreglo 'arrayUsuario'
-                    me.arrayAlumno = respuesta.alumno.data;
+                    me.arrayRentero = respuesta.renta.data; //*
                     //Guarda en el arreglo 'pagination' las variables necesarias para llevar a cabo estas tareas
                     me.pagination = respuesta.pagination;
                 })
@@ -251,59 +272,56 @@
                 //Actualiza la pagina actual
                 me.pagination.current_page = page;
                 //Envia la peticion para visualizar los datos de esa pagina
-                me.listarAlumnos(page,buscar,criterio);
+                me.listarRenteros(page,buscar,criterio);
             },
          
-            registrarAlumno() {
-                if (this.validarAlumno()) {
+            registrarRentero() {
+                if (this.validarRentero()) {
                     return;
                 }
                 let me = this;
-                 axios.post('/alumno/registrar',{
+                 axios.post('/renta/registrar',{
                  'nombre':this.nombre,
-                 'correo':this.correo,
                  'telefono':this.telefono,
-                 'fecha':this.fecha
+                 'encargado':this.encargado
                 }).then(function (response) {
            
                   me.cerrarModal();
-                    me.listarAlumnos(1,'','titulo');
+                    me.listarRenteros(1,'','nombre');
                 })
                 .catch(function (error) {
                     console.log(error);
                 });
             },
             
-            actualizarAlumno() {
-                  if (this.validarAlumno()) {
+            actualizarRentero() {
+                  if (this.validarRentero()) {
                     return;
                 }
                 let me = this;
                 
-                axios.put('/alumno/actualizar',{
+                axios.put('/renta/actualizar',{
                  'nombre':this.nombre,
-                 'correo':this.correo,
                  'telefono':this.telefono,
-                 'fecha':this.fecha,
+                 'encargado':this.encargado,
                   'id':this.id
                 }).then(function (response) {
                      me.cerrarModal();
-                    me.listarAlumnos(1,'','titulo');
+                    me.listarRenteros(1,'','nombre');
                 })
                 .catch(function (error) {
                     console.log(error);
                 });
             },
             
-                 validarAlumno() {
+                 validarRentero() {
               this.errorProyecto = 0;
-              this.errorMostrarMsjAlumno = [];
-              if (!this.nombre) this.errorMostrarMsjAlumno.push("Ingresar el nombre del alumno");
-              if (!this.correo) this.errorMostrarMsjAlumno.push("Ingresar el correo del alumno.");
-              if (!this.telefono) this.errorMostrarMsjAlumno.push("Ingresar el telefono del alumno ");  
-              if (!this.fecha) this.errorMostrarMsjAlumno.push("Ingresar la fecha de nacimiento del alumno ");
-              if (this.errorMostrarMsjAlumno.length) this.errorAlumno = 1;
-                return this.errorAlumno;
+              this.errorMostrarMsjRentero = [];
+              if (!this.nombre) this.errorMostrarMsjRentero.push("Ingresar el nombre del local");
+              if (!this.telefono) this.errorMostrarMsjRentero.push("Ingresar el telefono del encargado.");
+              if (!this.encargado) this.errorMostrarMsjRentero.push("Ingresar el nombre del encargado ");
+              if (this.errorMostrarMsjRentero.length) this.errorRentero = 1;
+                return this.errorRentero;
             },
          
               abrirModal(accion, data = [],id) {
@@ -312,39 +330,46 @@
                     case 'registrar':
                     {
                         this.modal = 1;
-                        this.tituloModal = 'Registrar Alumno';
+                        this.tituloModal = 'Registrar Renta';
                         this.tipoAccion = 1;
                         this.nombre="";
-                        this.correo="";
                         this.telefono="";
-                        this.fecha="";
+                        this.encargado="";
                         break;
                     }
                     case 'actualizar':
                     {
                         this.modal = 1;
                         this.id=id;
-                        this.tituloModal = 'Actualizar Alumno';
+                        this.tituloModal = 'Actualizar Renta';
                         this.tipoAccion = 2;
                         this.nombre=data["nombre"];
-                        this.correo=data["correo_electronico"];
                         this.telefono=data["telefono"];
-                        this.fecha=data["fecha_nacimiento"];
+                        this.encargado=data["encargado"];
                         break;
-                      }        
+                      }
+                    case 'pagar':
+                    {
+                        this.tipoAccion=3;
+                        this.modal = 1;
+                        this.tituloModal = 'Pago de renta';
+                        this.id=data['id'];
+                        this.nombre=data["nombre"];
+                        this.cantidad=0;
+                        break;
+                      }
                   }
             },
              cerrarModal() {
                 this.modal = 0;
                 this.tituloModal = '';
-                this.nombre="";
-                this.correo="";
-                this.telefono="";
-                this.fecha="";
-                this.errorAlumno= 0;
+                this.errorRentero= 0;
+                this.nombre = '';
+                this.telefono = '';
+                this.encargado = '';
             },
             
-            desactivarAlumno(id) {
+            desactivarRenta(id) {
                 const swalWithBootstrapButtons = Swal.mixin({
                     customClass: {
                         confirmButton: 'btn btn-success',
@@ -353,7 +378,7 @@
                     buttonsStyling: false
                 })
                 swalWithBootstrapButtons.fire({
-                    title: '¿Estás seguro de desactivar este alumno?     ',
+                    title: '¿Estás seguro de desactivar esta renta?     ',
                     type: 'warning',
                     showCancelButton: true,
                     confirmButtonText: 'Aceptar',
@@ -363,27 +388,15 @@
                     if (result.value) {
                         let me = this;
                         //Mediante axios se hace una peticion mediante ajax gracias a la ruta '/categoria/desactivar' para llamar al controlador y ejecutar la tarea correspondiente
-                        axios.post('/alumno/desactivar',{
+                        axios.post('/renta/desactivar',{
                             'id':id,
                         }).then(function (response) {
-                          
-                           if(response.data==1)
-                             {
                               swalWithBootstrapButtons.fire(
                             '¡finalizado!',
-                            'El alumno ha sido desactivad con éxito.',
+                            'La renta ha sido desactivad con éxito.',
                             'success'
                             ) 
-                               me.listarAlumnos(1,'','titulo');
-                             }
-                          else
-                            {
-                                  swalWithBootstrapButtons.fire(
-                          
-                            'No puede desactivar este alumno ya que tiene pagos activos.',
-                           
-                            ) 
-                            }
+                               me.listarRenteros(1,'','nombre');
                         })
                         .catch(function (error) {
                             console.log(error);
@@ -396,11 +409,97 @@
                 })
             },
          
-        
+            ActivarRenta(id) {
+                const swalWithBootstrapButtons = Swal.mixin({
+                    customClass: {
+                        confirmButton: 'btn btn-success',
+                        cancelButton: 'btn btn-danger'
+                    },
+                    buttonsStyling: false
+                })
+                swalWithBootstrapButtons.fire({
+                    title: '¿Estás seguro de activar esta renta?     ',
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Aceptar',
+                    cancelButtonText: 'Cancelar',
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.value) {
+                        let me = this;
+                        //Mediante axios se hace una peticion mediante ajax gracias a la ruta '/categoria/desactivar' para llamar al controlador y ejecutar la tarea correspondiente
+                        axios.post('/renta/activar',{
+                            'id':id,
+                        }).then(function (response) {
+                              swalWithBootstrapButtons.fire(
+                            '¡finalizado!',
+                            'La renta ha sido activada con éxito.',
+                            'success'
+                            ) 
+                               me.listarRenteros(1,'','nombre');
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+                    } else if (
+                        /* Read more about handling dismissals below */
+                        result.dismiss === Swal.DismissReason.cancel
+                    ) {
+                    }
+                })
+            },
+          
+          pago() {
+                const swalWithBootstrapButtons = Swal.mixin({
+                    customClass: {
+                        confirmButton: 'btn btn-success',
+                        cancelButton: 'btn btn-danger'
+                    },
+                    buttonsStyling: false
+                })
+                swalWithBootstrapButtons.fire({
+                    title: '¿Estás seguro de hacer este pago?',
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Aceptar',
+                    cancelButtonText: 'Cancelar',
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.value) {
+                        let me = this;
+                        //Mediante axios se hace una peticion mediante ajax gracias a la ruta '/categoria/activar' para llamar al controlador y ejecutar la tarea correspondiente
+                        axios.post('/renta/pagar',{
+                            //Se le asignan los valores recopilados de los inputs del modal
+                            'id': this.id,
+                            'nombre':this.nombre,
+                            'monto':this.cantidad
+                          
+                        }).then(function (response) {
+                            //Se llama al metodo para enlistar las categorias y se muestra un mensaje mediante sweetalert
+                               swalWithBootstrapButtons.fire(
+                            '¡Pagado!',
+                            'El pago ha sido realizado con éxito.',
+                            'success'
+                            )
+                           me.listarRenteros(1,'','nombre');
+                           me.cerrarModal();
+                       
+                          
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+                    } else if (
+                        /* Read more about handling dismissals below */
+                        result.dismiss === Swal.DismissReason.cancel
+                    ) {
+                    }
+                })
+            },
         },
          mounted() {
 
-            this.listarAlumnos(1,this.buscar,this.criterio);
+            this.listarRenteros(1,this.buscar,this.criterio);
 
         }
     }

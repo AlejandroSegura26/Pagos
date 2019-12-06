@@ -11,6 +11,8 @@ Vue.component('colegiaturas', require('./components/ColegiaturasComponent.vue').
 Vue.component('servicios', require('./components/ServiciosComponent.vue').default);
 Vue.component('pagoscolegiaturas', require('./components/PagosColegiaturasComponent.vue').default);
 Vue.component('estadocuenta', require('./components/EstadoCuentaComponent.vue').default);
+Vue.component('rentas', require('./components/RentasComponent.vue').default);
+Vue.component('compras', require('./components/ComprasComponent.vue').default);
 const app = new Vue({
     el: '#app',
     data: {
