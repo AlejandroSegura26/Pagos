@@ -195,7 +195,7 @@
                             //Se llama al metodo para enlistar las categorias y se muestra un mensaje mediante sweetalert
                          
                             swalWithBootstrapButtons.fire(
-                            '¡Activado!',
+                            '¡Pagado!',
                             'El pago ha sido realizado con éxito.',
                             'success'
                             )

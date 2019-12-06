@@ -401,7 +401,7 @@
                           
                             
                               swalWithBootstrapButtons.fire(
-                            '¡finalizado!',
+                            '¡Descativado!',
                             'El provedor ha sido desactivado con éxito.',
                             'success'
                             ) 

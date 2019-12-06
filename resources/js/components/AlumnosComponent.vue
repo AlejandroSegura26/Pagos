@@ -45,12 +45,13 @@
                         <tbody>
                             <tr v-for="alumno in arrayAlumno" :key="alumno.id">
                                 <td>
+                                    <template v-if="alumno.estado">
                                       <button type="button" @click="abrirModal('actualizar',alumno,alumno.id)" class="btn btn-warning btn-sm">
                                         <i class="fas ">Editar</i>
                                     </button> &nbsp; &nbsp;
                                      
                                        
-                                        <template v-if="alumno.estado">
+                                      
                                         <button type="button" class="btn btn-danger btn-sm" @click="desactivarAlumno(alumno.id)">
                                             <i class="far">Desactivar</i>
                                         </button>&nbsp;
@@ -370,8 +371,8 @@
                            if(response.data==1)
                              {
                               swalWithBootstrapButtons.fire(
-                            '¡finalizado!',
-                            'El alumno ha sido desactivad con éxito.',
+                            '¡Desactivado!',
+                            'El alumno ha sido desactivado con éxito.',
                             'success'
                             ) 
                                me.listarAlumnos(1,'','titulo');

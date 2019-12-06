@@ -17,13 +17,13 @@ class movimientoController extends Controller
              $movimiento =Movimiento:: 
           select('*')
               ->orderBy('movimientos.id','desc')
-            ->paginate(5);
+            ->paginate(30);
         }
         else 
         {
             $movimiento = Movimiento::where('movimientos.'.$criterio,'like','%'.$buscar.'%')
              ->orderBy('movimientos.id','desc')
-            ->paginate(5);
+            ->paginate(30);
         }
         $cartera = Cartera :: findOrFail('1');
            return [

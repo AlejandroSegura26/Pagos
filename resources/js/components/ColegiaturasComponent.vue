@@ -37,7 +37,7 @@
                                 
                                 <th>Periodo</th>
                                 <th>Monto</th>
-                                <th>Estado</th>
+ 
                             </tr>
                         </thead>
                         <tbody>
@@ -46,13 +46,8 @@
                                 <td v-text="colegiatura.periodo"></td>
                                  
                                 <td v-text="colegiatura.monto"></td>
-                                
-                                  <template v-if="colegiatura.estado">
-                                     <td  >Activo</td>
-                                   </template>     
-                                    <template v-else>
-                                            <td  >Desactivado</td>
-                                    </template>
+                          
+                                  
                             </tr>
                         </tbody>
                     </table>
@@ -71,12 +66,7 @@
                     </nav>
                 </div>
             </div>
-            <!-- Fin de Listado Usuarios -->
-
-            <template style="margin-top:10px;" v-if="menu==15">
-                <tareas-component></tareas-component>
-            </template>
-
+             
 
         </div>
         <!--Inicio del modal agregar/actualizar-->
@@ -115,7 +105,7 @@
                                 <div class="text-center text-error">
                                     <div v-for="error in errorMostrarMsjAlumno" :key="error" v-text="error"></div>
                                 </div>
-                            </div>
+                            </div> 
                         </form>
 
                    
@@ -330,8 +320,8 @@
                            if(response.data==1)
                              {
                               swalWithBootstrapButtons.fire(
-                            '¡finalizado!',
-                            'El colegiatura ha sido desactivad con éxito.',
+                            '¡Desactivada!',
+                            'El colegiatura ha sido desactivada con éxito.',
                             'success'
                             ) 
                                me.listarcolegiaturaes(1,'','titulo');

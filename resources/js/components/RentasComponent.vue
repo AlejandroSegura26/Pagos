@@ -392,8 +392,8 @@
                             'id':id,
                         }).then(function (response) {
                               swalWithBootstrapButtons.fire(
-                            '¡finalizado!',
-                            'La renta ha sido desactivad con éxito.',
+                            '¡Desactivada!',
+                            'La renta ha sido desactivada con éxito.',
                             'success'
                             ) 
                                me.listarRenteros(1,'','nombre');
@@ -432,7 +432,7 @@
                             'id':id,
                         }).then(function (response) {
                               swalWithBootstrapButtons.fire(
-                            '¡finalizado!',
+                            '¡Activada!',
                             'La renta ha sido activada con éxito.',
                             'success'
                             ) 
