@@ -21,9 +21,9 @@
                                    <option value="monto">Monto</option>
                                  
                                 </select>
-                                 <input type="text" v-model="buscar" @keyup.enter="listarcolegiaturaes(1,buscar,criterio)" class="form-control"
+                                 <input type="text" v-model="buscar" @keyup.enter="listarmovimiento(1,buscar,criterio)" class="form-control"
                                     placeholder="Texto a buscar">
-                                <button type="submit" @click="listarcolegiaturaes(1,buscar,criterio)" class="btn btn-primary"><i class="fa fa-search"></i>
+                                <button type="submit" @click="listarmovimiento(1,buscar,criterio)" class="btn btn-primary"><i class="fa fa-search"></i>
                                     Buscar</button>
                             </div>
                         </div>
@@ -38,14 +38,20 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="colegiatura in arraycolegiatura" :key="colegiatura.id">
+                            <tr v-for="movimiento in arraymovimiento" :key="movimiento.id">
                             
-                                <td v-text="colegiatura.periodo"></td>
-                                <td v-text="colegiatura.nombre"></td>                                 
-                                <td v-text="colegiatura.monto"></td>
-                               
+                                <td v-text="movimiento.tipoMovimiento "></td>
+                                <td v-text="movimiento.asunto "></td>                                 
+                                <td v-text="movimiento.originario"></td>
+                                <td v-text="movimiento.monto"></td>
                             </tr>
                         </tbody>
+                       <tfoot>
+                       <tr>
+                         <th>Saldo</th>
+                        <th v-text="saldo"></th>
+                          </tr>
+                      </tfoot>
                     </table>
                     <nav>
                         <ul class="pagination">
@@ -76,9 +82,9 @@
         data() {
             return {
             id:0,
-            
+            saldo:0,
             menu:0,
-           arraycolegiatura:[],
+           arraymovimiento:[],
             pagination: 
             {
               'total': 0,
@@ -125,17 +131,19 @@
         //Métodos para mostrar, guardar, actualizar, desactivar y activar el usuario
         methods: {
             //Metodo para obtener todos los registros de la bd mediante el uso del controlador definido y en este caso, se tiene tambien la implementacion de la paginacion para ver los registros de acuerdo a lo establecido en el modelo (10 modelos por pagina) y se implementa la busqueda de registros en este metodo debido a que es el que se encarga de mostrar los datos de acuerdo al criterio elegido si es que se ha introducido un texto o mostrar todos los datos en caso de que no sea asi
-            listarcolegiaturaes(page,buscar,criterio) {
+            listarmovimiento(page,buscar,criterio) {
               let me = this;
                 //Se le asigna a la ruta '/cliente' los parametros 'buscar' y 'criterio' mediante el metodo get que se utiliza para buscar un registro de acuerdo a lo que ha ingresado el usuario en el input para buscar
-                var url = '/pagoColegiatura?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
+                var url = '/movimiento?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
                 axios.get(url).then(function (response) {
                     //Se crea una variable respuesta que guardara los datos de la consulta mediante ajax
                     var respuesta = response.data;
                     //Guarda los datos en el arreglo 'arrayUsuario'
-                    me.arraycolegiatura = respuesta.colegiatura.data;
+                    me.arraymovimiento = respuesta.movimiento.data;
                     //Guarda en el arreglo 'pagination' las variables necesarias para llevar a cabo estas tareas
                     me.pagination = respuesta.pagination;
+                    this.saldo=respuesta.saldo;
+                  console.log(respuesta.saldo)
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -148,14 +156,14 @@
                 //Actualiza la pagina actual
                 me.pagination.current_page = page;
                 //Envia la peticion para visualizar los datos de esa pagina
-                me.listarcolegiaturaes(page,buscar,criterio);
+                me.listarmovimiento(page,buscar,criterio);
             },
          
             
         },
          mounted() {
 
-            this.listarcolegiaturaes(1,this.buscar,this.criterio);
+            this.listarmovimiento(1,this.buscar,this.criterio);
 
         }
     }

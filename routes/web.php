@@ -54,5 +54,7 @@ Route::group(['middleware' => ['auth']], function () {
   
   Route::get('/pagoColegiatura','PagoColegiaturaController@index');
   Route::post('/pagoColegiatura/pagar','PagoColegiaturaController@pagar');
+  
+  Route::get('/movimiento','movimientoController@index');
 });
 

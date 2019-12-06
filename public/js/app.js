@@ -2721,19 +2721,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   //Propiedad 'data' de javascript donde se declaran las variables necesarias para el funcionamiento del modulo 'categorias', dentro de estas variables tenemos las encargadas de la paginacion, del crud, de la busqueda de registros y del activado y desactivado de la cliente
   data: function data() {
     return {
       id: 0,
+      saldo: 0,
       menu: 0,
-      arraycolegiatura: [],
+      arraymovimiento: [],
       pagination: {
         'total': 0,
         'current_page': 0,
@@ -2786,17 +2781,19 @@ __webpack_require__.r(__webpack_exports__);
   //Métodos para mostrar, guardar, actualizar, desactivar y activar el usuario
   methods: {
     //Metodo para obtener todos los registros de la bd mediante el uso del controlador definido y en este caso, se tiene tambien la implementacion de la paginacion para ver los registros de acuerdo a lo establecido en el modelo (10 modelos por pagina) y se implementa la busqueda de registros en este metodo debido a que es el que se encarga de mostrar los datos de acuerdo al criterio elegido si es que se ha introducido un texto o mostrar todos los datos en caso de que no sea asi
-    listarcolegiaturaes: function listarcolegiaturaes(page, buscar, criterio) {
+    listarmovimiento: function listarmovimiento(page, buscar, criterio) {
       var me = this; //Se le asigna a la ruta '/cliente' los parametros 'buscar' y 'criterio' mediante el metodo get que se utiliza para buscar un registro de acuerdo a lo que ha ingresado el usuario en el input para buscar
 
-      var url = '/pagoColegiatura?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
+      var url = '/movimiento?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
       axios.get(url).then(function (response) {
         //Se crea una variable respuesta que guardara los datos de la consulta mediante ajax
         var respuesta = response.data; //Guarda los datos en el arreglo 'arrayUsuario'
 
-        me.arraycolegiatura = respuesta.colegiatura.data; //Guarda en el arreglo 'pagination' las variables necesarias para llevar a cabo estas tareas
+        me.arraymovimiento = respuesta.movimiento.data; //Guarda en el arreglo 'pagination' las variables necesarias para llevar a cabo estas tareas
 
         me.pagination = respuesta.pagination;
+        this.saldo = respuesta.saldo;
+        console.log(respuesta.saldo);
       })["catch"](function (error) {
         console.log(error);
       });
@@ -2807,49 +2804,11 @@ __webpack_require__.r(__webpack_exports__);
 
       me.pagination.current_page = page; //Envia la peticion para visualizar los datos de esa pagina
 
-      me.listarcolegiaturaes(page, buscar, criterio);
-    },
-    pagar: function pagar(colegiatura) {
-      var _this = this;
-
-      var swalWithBootstrapButtons = Swal.mixin({
-        customClass: {
-          confirmButton: 'btn btn-success',
-          cancelButton: 'btn btn-danger'
-        },
-        buttonsStyling: false
-      });
-      swalWithBootstrapButtons.fire({
-        title: '¿Estás seguro de hacer este pago?',
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Aceptar',
-        cancelButtonText: 'Cancelar',
-        reverseButtons: true
-      }).then(function (result) {
-        if (result.value) {
-          var me = _this; //Mediante axios se hace una peticion mediante ajax gracias a la ruta '/categoria/activar' para llamar al controlador y ejecutar la tarea correspondiente
-
-          axios.post('/pagoColegiatura/pagar', {
-            //Se le asignan los valores recopilados de los inputs del modal
-            'id': colegiatura.id,
-            'nombre': colegiatura.nombre,
-            'monto': colegiatura.monto
-          }).then(function (response) {
-            //Se llama al metodo para enlistar las categorias y se muestra un mensaje mediante sweetalert
-            swalWithBootstrapButtons.fire('¡Activado!', 'El pago ha sido realizado con éxito.', 'success');
-            me.listarcolegiaturaes(1, '', 'titulo');
-          })["catch"](function (error) {
-            console.log(error);
-          });
-        } else if (
-        /* Read more about handling dismissals below */
-        result.dismiss === Swal.DismissReason.cancel) {}
-      });
+      me.listarmovimiento(page, buscar, criterio);
     }
   },
   mounted: function mounted() {
-    this.listarcolegiaturaes(1, this.buscar, this.criterio);
+    this.listarmovimiento(1, this.buscar, this.criterio);
   }
 });
 
@@ -6763,7 +6722,7 @@ var render = function() {
                 }
               }
             },
-            [_vm._v("Colegiaturas")]
+            [_vm._v("Estado de cuenta")]
           )
         ])
       ]),
@@ -6841,11 +6800,7 @@ var render = function() {
                         ) {
                           return null
                         }
-                        return _vm.listarcolegiaturaes(
-                          1,
-                          _vm.buscar,
-                          _vm.criterio
-                        )
+                        return _vm.listarmovimiento(1, _vm.buscar, _vm.criterio)
                       },
                       input: function($event) {
                         if ($event.target.composing) {
@@ -6863,7 +6818,7 @@ var render = function() {
                       attrs: { type: "submit" },
                       on: {
                         click: function($event) {
-                          return _vm.listarcolegiaturaes(
+                          return _vm.listarmovimiento(
                             1,
                             _vm.buscar,
                             _vm.criterio
@@ -6888,61 +6843,37 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "tbody",
-                  _vm._l(_vm.arraycolegiatura, function(colegiatura) {
-                    return _c(
-                      "tr",
-                      { key: colegiatura.id },
-                      [
-                        _c(
-                          "td",
-                          [
-                            !colegiatura.estado
-                              ? [
-                                  _c(
-                                    "button",
-                                    {
-                                      staticClass: "btn btn-danger btn-sm",
-                                      attrs: { type: "button" },
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.pagar(colegiatura)
-                                        }
-                                      }
-                                    },
-                                    [
-                                      _c("i", {
-                                        staticClass: "far fa-eye-slash"
-                                      })
-                                    ]
-                                  ),
-                                  _vm._v(" \n                                ")
-                                ]
-                              : _vm._e()
-                          ],
-                          2
-                        ),
-                        _vm._v(" "),
-                        _c("td", {
-                          domProps: { textContent: _vm._s(colegiatura.periodo) }
-                        }),
-                        _vm._v(" "),
-                        _c("td", {
-                          domProps: { textContent: _vm._s(colegiatura.nombre) }
-                        }),
-                        _vm._v(" "),
-                        _c("td", {
-                          domProps: { textContent: _vm._s(colegiatura.monto) }
-                        }),
-                        _vm._v(" "),
-                        colegiatura.estado
-                          ? [_c("td", [_vm._v("Pagado")])]
-                          : [_c("td", [_vm._v("Adeudo")])]
-                      ],
-                      2
-                    )
+                  _vm._l(_vm.arraymovimiento, function(movimiento) {
+                    return _c("tr", { key: movimiento.id }, [
+                      _c("td", {
+                        domProps: {
+                          textContent: _vm._s(movimiento.tipoMovimiento)
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("td", {
+                        domProps: { textContent: _vm._s(movimiento.asunto) }
+                      }),
+                      _vm._v(" "),
+                      _c("td", {
+                        domProps: { textContent: _vm._s(movimiento.originario) }
+                      }),
+                      _vm._v(" "),
+                      _c("td", {
+                        domProps: { textContent: _vm._s(movimiento.monto) }
+                      })
+                    ])
                   }),
                   0
-                )
+                ),
+                _vm._v(" "),
+                _c("tfoot", [
+                  _c("tr", [
+                    _c("th", [_vm._v("Saldo")]),
+                    _vm._v(" "),
+                    _c("th", { domProps: { textContent: _vm._s(_vm.saldo) } })
+                  ])
+                ])
               ]
             ),
             _vm._v(" "),
@@ -7049,7 +6980,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
       _c("i", { staticClass: "fa fa-thumbtack" }),
-      _vm._v("  Pago de colegiaturas \n      \n            ")
+      _vm._v("  Estado de cuenta \n      \n            ")
     ])
   },
   function() {
@@ -7058,15 +6989,13 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", [_vm._v("Pagar")]),
+        _c("th", [_vm._v("Movimiento")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Periodo")]),
+        _c("th", [_vm._v("Asunto")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Alumno")]),
+        _c("th", [_vm._v("Originario")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Monto")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Estado")])
+        _c("th", [_vm._v("Monto")])
       ])
     ])
   }
