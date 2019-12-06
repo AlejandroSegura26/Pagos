@@ -24,7 +24,10 @@ class PagoColegiaturaController extends Controller
         }
         else 
         {
-          $colegiatura = PagoColegiatura::where('colegiaturas.'.$criterio,'like','%'.$buscar.'%')
+         $colegiatura =PagoColegiatura::join('alumnos','alumnos.id','=','pagosColegiaturas.alumno_id')
+               ->join('colegiaturas','colegiaturas.id','=','pagosColegiaturas.colegiatura_id')
+          ->select('pagosColegiaturas.id','colegiaturas.periodo','alumnos.nombre','colegiaturas.monto','pagosColegiaturas.estado')
+           ->where('colegiaturas.'.$criterio,'like','%'.$buscar.'%')
              ->orderBy('colegiaturas.id','desc')
             ->paginate(5); 
         }

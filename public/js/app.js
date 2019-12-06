@@ -2376,24 +2376,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   //Propiedad 'data' de javascript donde se declaran las variables necesarias para el funcionamiento del modulo 'categorias', dentro de estas variables tenemos las encargadas de la paginacion, del crud, de la busqueda de registros y del activado y desactivado de la cliente
   data: function data() {
@@ -2647,22 +2629,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -6589,10 +6555,14 @@ var render = function() {
                                     }
                                   }
                                 },
-                                [_c("i", { staticClass: "fas fa-pen" })]
+                                [
+                                  _c("i", { staticClass: "fas " }, [
+                                    _vm._v("Editar")
+                                  ])
+                                ]
                               ),
                               _vm._v(
-                                "  \n                                 \n                                   \n                                    "
+                                "    \n                                 \n                                   \n                                    "
                               ),
                               alumno.estado
                                 ? [
@@ -6610,9 +6580,9 @@ var render = function() {
                                         }
                                       },
                                       [
-                                        _c("i", {
-                                          staticClass: "far fa-eye-slash"
-                                        })
+                                        _c("i", { staticClass: "far" }, [
+                                          _vm._v("Desactivar")
+                                        ])
                                       ]
                                     ),
                                     _vm._v(
@@ -7292,80 +7262,6 @@ var render = function() {
                         "tr",
                         { key: colegiatura.id },
                         [
-                          _c(
-                            "td",
-                            [
-                              _c(
-                                "button",
-                                {
-                                  staticClass: "btn btn-warning btn-sm",
-                                  attrs: { type: "button" },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.abrirModal(
-                                        "actualizar",
-                                        colegiatura,
-                                        colegiatura.id
-                                      )
-                                    }
-                                  }
-                                },
-                                [_c("i", { staticClass: "fas fa-pen" })]
-                              ),
-                              _vm._v(
-                                "  \n                                 \n                                   \n                                    "
-                              ),
-                              colegiatura.estado
-                                ? [
-                                    _c(
-                                      "button",
-                                      {
-                                        staticClass: "btn btn-danger btn-sm",
-                                        attrs: { type: "button" },
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.desactivarcolegiatura(
-                                              colegiatura.id
-                                            )
-                                          }
-                                        }
-                                      },
-                                      [
-                                        _c("i", {
-                                          staticClass: "far fa-eye-slash"
-                                        })
-                                      ]
-                                    ),
-                                    _vm._v(
-                                      " \n                                "
-                                    )
-                                  ]
-                                : [
-                                    _c(
-                                      "button",
-                                      {
-                                        staticClass: "btn btn-info btn-sm",
-                                        attrs: { type: "button" },
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.activarcolegiatura(
-                                              colegiatura.id
-                                            )
-                                          }
-                                        }
-                                      },
-                                      [
-                                        _c("i", { staticClass: "far fa-eye" }),
-                                        _vm._v(
-                                          "Activar\n                                    "
-                                        )
-                                      ]
-                                    )
-                                  ]
-                            ],
-                            2
-                          ),
-                          _vm._v(" "),
                           _c("td", {
                             domProps: {
                               textContent: _vm._s(colegiatura.periodo)
@@ -7725,8 +7621,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", [_vm._v("Opciones")]),
-        _vm._v(" "),
         _c("th", [_vm._v("Periodo")]),
         _vm._v(" "),
         _c("th", [_vm._v("Monto")]),
@@ -7848,19 +7742,13 @@ var render = function() {
                         }
                       },
                       [
-                        _c("option", { attrs: { value: "nombre" } }, [
-                          _vm._v("Nombre")
+                        _c("option", { attrs: { value: "asunto" } }, [
+                          _vm._v("Asunto")
                         ]),
                         _vm._v(" "),
-                        _c("option", { attrs: { value: "telefono" } }, [
-                          _vm._v("Telefono")
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "option",
-                          { attrs: { value: "correo_electronico" } },
-                          [_vm._v("direccion")]
-                        )
+                        _c("option", { attrs: { value: "monto" } }, [
+                          _vm._v("Monto")
+                        ])
                       ]
                     ),
                     _vm._v(" "),
@@ -7930,57 +7818,15 @@ var render = function() {
                   _c(
                     "tbody",
                     _vm._l(_vm.arraycompra, function(compra) {
-                      return _c(
-                        "tr",
-                        { key: compra.id },
-                        [
-                          _c(
-                            "td",
-                            [
-                              compra.estado
-                                ? [
-                                    _c(
-                                      "button",
-                                      {
-                                        staticClass: "btn btn-danger btn-sm",
-                                        attrs: { type: "button" },
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.desactivarcompra(
-                                              compra.id
-                                            )
-                                          }
-                                        }
-                                      },
-                                      [
-                                        _c("i", {
-                                          staticClass: "far fa-eye-slash"
-                                        })
-                                      ]
-                                    ),
-                                    _vm._v(
-                                      " \n                                "
-                                    )
-                                  ]
-                                : _vm._e()
-                            ],
-                            2
-                          ),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: { textContent: _vm._s(compra.asunto) }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: { textContent: _vm._s(compra.monto) }
-                          }),
-                          _vm._v(" "),
-                          compra.estado
-                            ? [_c("td", [_vm._v("Activo")])]
-                            : [_c("td", [_vm._v("Desactivado")])]
-                        ],
-                        2
-                      )
+                      return _c("tr", { key: compra.id }, [
+                        _c("td", {
+                          domProps: { textContent: _vm._s(compra.asunto) }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: { textContent: _vm._s(compra.monto) }
+                        })
+                      ])
                     }),
                     0
                   )
@@ -8304,13 +8150,9 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", [_vm._v("Opciones")]),
-        _vm._v(" "),
         _c("th", [_vm._v("Asunto")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Monto")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Estado")])
+        _c("th", [_vm._v("Monto")])
       ])
     ])
   },
@@ -9236,7 +9078,7 @@ var render = function() {
                                   _c(
                                     "button",
                                     {
-                                      staticClass: "btn btn-danger btn-sm",
+                                      staticClass: "btn btn-info btn-sm",
                                       attrs: { type: "button" },
                                       on: {
                                         click: function($event) {
@@ -9245,9 +9087,10 @@ var render = function() {
                                       }
                                     },
                                     [
-                                      _c("i", {
-                                        staticClass: "far fa-eye-slash"
-                                      })
+                                      _c("i", { staticClass: "far fa" }),
+                                      _vm._v(
+                                        "Pagar\n                                    "
+                                      )
                                     ]
                                   ),
                                   _vm._v(" \n                                ")
@@ -9605,7 +9448,10 @@ var render = function() {
                                 }
                               }
                             },
-                            [_c("i", { staticClass: "fas fa-pen" })]
+                            [
+                              _c("i", { staticClass: "fas " }),
+                              _vm._v("Editar\n                                ")
+                            ]
                           ),
                           _vm._v(
                             "  \n                                 \n                                   \n                                    "
@@ -9623,7 +9469,12 @@ var render = function() {
                                       }
                                     }
                                   },
-                                  [_c("i", { staticClass: "far fa-eye-slash" })]
+                                  [
+                                    _c("i", { staticClass: "far " }),
+                                    _vm._v(
+                                      "Descativar\n                                    "
+                                    )
+                                  ]
                                 ),
                                 _vm._v(
                                   " \n                                      \n                                    "
@@ -9631,7 +9482,7 @@ var render = function() {
                                 _c(
                                   "button",
                                   {
-                                    staticClass: "btn btn-warning btn-sm",
+                                    staticClass: "btn btn-info btn-sm",
                                     attrs: { type: "button" },
                                     on: {
                                       click: function($event) {
@@ -9643,7 +9494,12 @@ var render = function() {
                                       }
                                     }
                                   },
-                                  [_c("i", { staticClass: "fas fa-pen" })]
+                                  [
+                                    _c("i", { staticClass: "fas" }),
+                                    _vm._v(
+                                      "Pagar\n                                    "
+                                    )
+                                  ]
                                 ),
                                 _vm._v(
                                   "  \n                                      \n                                    "
@@ -9653,7 +9509,7 @@ var render = function() {
                                 _c(
                                   "button",
                                   {
-                                    staticClass: "btn btn-danger btn-sm",
+                                    staticClass: "btn btn-info btn-sm",
                                     attrs: { type: "button" },
                                     on: {
                                       click: function($event) {
@@ -9661,7 +9517,12 @@ var render = function() {
                                       }
                                     }
                                   },
-                                  [_c("i", { staticClass: "far fa-eye" })]
+                                  [
+                                    _c("i", { staticClass: "fas" }),
+                                    _vm._v(
+                                      "Activar\n                                    "
+                                    )
+                                  ]
                                 ),
                                 _vm._v(
                                   " \n                                    "
@@ -10451,7 +10312,12 @@ var render = function() {
                                     }
                                   }
                                 },
-                                [_c("i", { staticClass: "fas fa-pen" })]
+                                [
+                                  _c("i", { staticClass: "fas " }),
+                                  _vm._v(
+                                    "Editar\n                                "
+                                  )
+                                ]
                               ),
                               _vm._v(
                                 "  \n                                 \n                                   \n                                    "
@@ -10472,9 +10338,10 @@ var render = function() {
                                         }
                                       },
                                       [
-                                        _c("i", {
-                                          staticClass: "far fa-eye-slash"
-                                        })
+                                        _c("i", { staticClass: "far " }),
+                                        _vm._v(
+                                          "Descativar\n                                    "
+                                        )
                                       ]
                                     ),
                                     _vm._v(
@@ -10496,7 +10363,7 @@ var render = function() {
                                         }
                                       },
                                       [
-                                        _c("i", { staticClass: "far fa-eye" }),
+                                        _c("i", { staticClass: "far fa" }),
                                         _vm._v(
                                           "Activar\n                                    "
                                         )
@@ -10504,22 +10371,34 @@ var render = function() {
                                     )
                                   ],
                               _vm._v(" "),
-                              _c(
-                                "button",
-                                {
-                                  staticClass: "btn btn-warning btn-sm",
-                                  attrs: { type: "button" },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.abrirModal("pagar", provedor)
-                                    }
-                                  }
-                                },
-                                [_c("i", { staticClass: "fas fa-pen" })]
-                              ),
-                              _vm._v(
-                                "  \n                                 \n\n\n                            "
-                              )
+                              provedor.estado
+                                ? [
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass: "btn btn-info btn-sm",
+                                        attrs: { type: "button" },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.abrirModal(
+                                              "pagar",
+                                              provedor
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("i", { staticClass: "fas" }),
+                                        _vm._v(
+                                          "Pagar\n                                "
+                                        )
+                                      ]
+                                    ),
+                                    _vm._v(
+                                      "  \n                                   "
+                                    )
+                                  ]
+                                : _vm._e()
                             ],
                             2
                           ),
@@ -11035,7 +10914,7 @@ var render = function() {
                             }
                           }
                         },
-                        [_vm._v("Actualizar")]
+                        [_vm._v("Pagar")]
                       )
                     : _vm._e()
                 ])

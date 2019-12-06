@@ -34,7 +34,7 @@
                     <table class="table table-bordered table-striped table-sm">
                         <thead>
                             <tr>
-                                <th>Opciones</th>
+                                
                                 <th>Periodo</th>
                                 <th>Monto</th>
                                 <th>Estado</th>
@@ -42,25 +42,7 @@
                         </thead>
                         <tbody>
                             <tr v-for="colegiatura in arraycolegiatura" :key="colegiatura.id">
-                                <td>
-                                      <button type="button" @click="abrirModal('actualizar',colegiatura,colegiatura.id)" class="btn btn-warning btn-sm">
-                                        <i class="fas fa-pen"></i>
-                                    </button> &nbsp;
-                                     
-                                       
-                                        <template v-if="colegiatura.estado">
-                                        <button type="button" class="btn btn-danger btn-sm" @click="desactivarcolegiatura(colegiatura.id)">
-                                            <i class="far fa-eye-slash"></i>
-                                        </button>&nbsp;
-                                    </template>
-                                    <template v-else>
-                                        <button type="button" class="btn btn-info btn-sm" @click="activarcolegiatura(colegiatura.id)">
-                                            <i class="far fa-eye"></i>Activar
-                                        </button>
-                                    </template>
-
-
-                                </td>
+                         
                                 <td v-text="colegiatura.periodo"></td>
                                  
                                 <td v-text="colegiatura.monto"></td>

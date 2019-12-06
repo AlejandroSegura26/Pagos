@@ -20,9 +20,9 @@
                         <div class="col-md-6">
                             <div class="input-group">
                                 <select class="form-control col-md-3" v-model="criterio">
-                                   <option value="nombre">Nombre</option>
-                                   <option value="telefono">Telefono</option>
-                                  <option value="correo_electronico">direccion</option>
+                                   <option value="asunto">Asunto</option>
+                                   <option value="monto">Monto</option>
+                                 
                                 </select>
                                  <input type="text" v-model="buscar" @keyup.enter="listarcompra(1,buscar,criterio)" class="form-control"
                                     placeholder="Texto a buscar">
@@ -34,38 +34,22 @@
                     <table class="table table-bordered table-striped table-sm">
                         <thead>
                             <tr>
-                                <th>Opciones</th>
+                             
                                 <th>Asunto</th>
                                 <th>Monto</th>
-                                <th>Estado</th>
+                           
                             </tr>
                         </thead>
                         <tbody>
                             <tr v-for="compra in arraycompra" :key="compra.id">
-                                <td>
-                             
-                                        <template v-if="compra.estado">
-                                        <button type="button" class="btn btn-danger btn-sm" @click="desactivarcompra(compra.id)">
-                                            <i class="far fa-eye-slash"></i>
-                                        </button>&nbsp;
-                                    </template>
-                          
-                           
-                                     
-
-                                </td>
+           
                                 <td v-text="compra.asunto"></td>
                                 <td v-text="compra.monto"></td>
-                                  <template v-if="compra.estado">
-                                     <td  >Activo</td>
-                                   </template>     
-                                    <template v-else>
-                                            <td  >Desactivado</td>
-                                    </template>
+                           
                             </tr>
                         </tbody>
                     </table>
-                    <nav>
+                    <nav> 
                         <ul class="pagination">
                             <li class="page-item" v-if="pagination.current_page > 1">
                                 <a class="page-link" href="#" @click.prevent="cambiarPagina(pagination.current_page - 1,buscar,criterio)">Ant</a>

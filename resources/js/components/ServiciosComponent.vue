@@ -45,25 +45,25 @@
                             <tr v-for="provedor in arrayProvedor" :key="provedor.id">
                                 <td>
                                       <button type="button" @click="abrirModal('actualizar',provedor)" class="btn btn-warning btn-sm">
-                                        <i class="fas fa-pen"></i>
+                                       <i class="fas "></i>Editar
                                     </button> &nbsp;
                                      
                                        
                                         <template v-if="provedor.estado">
                                         <button type="button" class="btn btn-danger btn-sm" @click="desactivarProvedores(provedor.id)">
-                                            <i class="far fa-eye-slash"></i>
+                                             <i class="far "></i>Descativar
                                         </button>&nbsp;
                                     </template>
                                     <template v-else>
                                         <button type="button" class="btn btn-info btn-sm" @click="activarProvedores(provedor.id)">
-                                            <i class="far fa-eye"></i>Activar
+                                            <i class="far fa"></i>Activar
                                         </button>
                                     </template>
-
-                                   <button type="button" @click="abrirModal('pagar',provedor)" class="btn btn-warning btn-sm">
-                                        <i class="fas fa-pen"></i>
+                                 <template v-if="provedor.estado">
+                                   <button type="button" @click="abrirModal('pagar',provedor)" class="btn btn-info btn-sm">
+                                       <i class="fas"></i>Pagar
                                     </button> &nbsp;
-                                     
+                                       </template>
 
 
                                 </td>
@@ -179,7 +179,7 @@
                         <button type="button" class="btn btn-secondary" @click="cerrarModal()">Cerrar</button>
                         <button type="button" v-if="tipoAccion==1" class="btn btn-success" @click="registrarProvedor()">Guardar</button>
                         <button type="button" v-if="tipoAccion==2" class="btn btn-warning" @click="actualizarProvedor()">Actualizar</button>
-                        <button type="button" v-if="tipoAccion==3" class="btn btn-warning" @click="pago()">Actualizar</button>
+                        <button type="button" v-if="tipoAccion==3" class="btn btn-warning" @click="pago()">Pagar</button>
                     </div>
                 </div>
                 <!-- /.modal-content -->

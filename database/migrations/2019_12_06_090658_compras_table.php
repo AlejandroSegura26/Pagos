@@ -13,7 +13,6 @@ class ComprasTable extends Migration
             $table->bigIncrements('id');
             $table->string('asunto',100);
             $table->string('monto');
-            $table->boolean('estado')->default(1);
         });
     }
  

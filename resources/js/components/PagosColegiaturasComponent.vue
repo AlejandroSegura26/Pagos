@@ -42,8 +42,8 @@
                             <tr v-for="colegiatura in arraycolegiatura" :key="colegiatura.id">
                                 <td>
                                    <template v-if="!colegiatura.estado">
-                                        <button type="button" class="btn btn-danger btn-sm" @click="pagar(colegiatura)">
-                                            <i class="far fa-eye-slash"></i>
+                                        <button type="button" class="btn btn-info btn-sm" @click="pagar(colegiatura)">
+                                            <i class="far fa"></i>Pagar
                                         </button>&nbsp;
                                     </template>
                                 </td>

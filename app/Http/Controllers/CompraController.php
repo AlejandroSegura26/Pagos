@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Compra;
 use App\Cartera;
+use App\Movimiento;
 class CompraController extends Controller
 {
    public function index(Request $request)
@@ -28,7 +29,7 @@ class CompraController extends Controller
 
            return [
                'pagination' => [
-                   'total' => $compra->total(),
+                   '239000.00total' => $compra->total(),
                    'current_page' => $compra->currentPage(),
                    'per_page' => $compra->perPage(),
                    'last_page' => $compra->lastPage(),
@@ -48,9 +49,15 @@ class CompraController extends Controller
           $compra = new Compra();
           $compra -> asunto = $request -> asunto;
           $compra -> monto = $request -> monto;
-          $compra -> estado = 1;
           $compra -> save();
-        
+          $movimientos = new Movimiento();
+          $movimientos -> tipoMovimiento =  "Salida";
+          $movimientos -> asunto =  "Compra";
+          $movimientos -> originario = $request -> asunto;
+          $movimientos -> monto = $request -> monto;
+          $movimientos -> save();
+          $cartera->saldo=$cartera->saldo-$request->monto;
+          $cartera->save();
           return 1;
         }
         else
@@ -61,13 +68,6 @@ class CompraController extends Controller
         
       }
   
-   public function desactivar(Request $request)
-     {
-        if (!$request->ajax()) return redirect('/'); 
-         $colegiatura = Colegiatura :: findOrFail($request->id);
-         $colegiatura -> estado = 0;
-         $colegiatura -> save();
-        
-      }
+   
       
 }

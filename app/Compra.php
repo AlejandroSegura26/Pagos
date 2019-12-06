@@ -10,8 +10,7 @@ class Compra extends Model
     protected $filltable =[ 
     'id',
     'asunto',
-    'monto',
-    'estado'];
+    'monto',];
     public $timestamps = false;
 
 

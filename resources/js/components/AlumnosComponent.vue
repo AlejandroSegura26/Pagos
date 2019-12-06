@@ -46,13 +46,13 @@
                             <tr v-for="alumno in arrayAlumno" :key="alumno.id">
                                 <td>
                                       <button type="button" @click="abrirModal('actualizar',alumno,alumno.id)" class="btn btn-warning btn-sm">
-                                        <i class="fas fa-pen"></i>
-                                    </button> &nbsp;
+                                        <i class="fas ">Editar</i>
+                                    </button> &nbsp; &nbsp;
                                      
                                        
                                         <template v-if="alumno.estado">
                                         <button type="button" class="btn btn-danger btn-sm" @click="desactivarAlumno(alumno.id)">
-                                            <i class="far fa-eye-slash"></i>
+                                            <i class="far">Desactivar</i>
                                         </button>&nbsp;
                                     </template>
                                     

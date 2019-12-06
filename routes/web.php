@@ -12,6 +12,9 @@
 */
 //Rutas para un usuario no autenticado
 Route::group(['middleware' => ['guest']], function () {
+  Route::get('/', function () {
+        return view('Auth\LoginController@showLoginForm');
+    }); //Alias de la ruta
     //Ruta para mostrar el formulario para iniciar sesion
     Route::get('/','Auth\LoginController@showLoginForm');
     //Ruta para iniciar sesion
@@ -23,6 +26,7 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/principal', function () {
     return view('contenido/contenido');
   })->name('principal');
+  
   //Ruta para cerrar sesion
   Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
   Route::get('/usuario/selectProgramadorTarea','UserController@selectProgramadorTarea');
@@ -65,8 +69,9 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('/renta/activar','RentaController@activar');
   Route::post('/renta/pagar','RentaController@pagar');
   
-   Route::post('/compra/registrar','CompraController@store');
-   Route::get('/compra','CompraController@index');
-    Route::post('/renta/desactivar','CompraController@desactivar');
+  Route::get('/compra','CompraController@index');
+  Route::post('/compra/registrar','CompraController@store');
+  Route::post('/compra/desactivar','CompraController@desactivar');
+  
 });
 

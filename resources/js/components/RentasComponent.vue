@@ -45,23 +45,23 @@
                             <tr v-for="renta in arrayRentero" :key="renta.id">
                                 <td>
                                       <button type="button" @click="abrirModal('actualizar',renta, renta.id)" class="btn btn-warning btn-sm">
-                                        <i class="fas fa-pen"></i>
+                                        <i class="fas "></i>Editar
                                     </button> &nbsp;
                                      
                                        
                                         <template v-if="renta.estado">
                                         <button type="button" class="btn btn-danger btn-sm" @click="desactivarRenta(renta.id)">
-                                            <i class="far fa-eye-slash"></i>
+                                            <i class="far "></i>Descativar
                                         </button>&nbsp;
                                           
-                                        <button type="button" @click="abrirModal('pagar', renta,renta.id)" class="btn btn-warning btn-sm">
-                                        <i class="fas fa-pen"></i>
+                                        <button type="button" @click="abrirModal('pagar', renta,renta.id)" class="btn btn-info btn-sm">
+                                        <i class="fas"></i>Pagar
                                         </button> &nbsp;
                                           
                                         </template>
                                         <template v-else>
-                                        <button type="button" class="btn btn-danger btn-sm" @click="ActivarRenta(renta.id)">
-                                            <i class="far fa-eye"></i>
+                                        <button type="button" class="btn btn-info btn-sm" @click="ActivarRenta(renta.id)">
+                                             <i class="fas"></i>Activar
                                         </button>&nbsp;
                                         </template>
                                         
