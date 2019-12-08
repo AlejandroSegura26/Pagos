@@ -14,7 +14,7 @@ class Compra extends Model
     public $timestamps = false;
 
 
-    public function Hito(){
+    public function Compra(){
         return $this -> hasMany('App\Compra');
     }
 }

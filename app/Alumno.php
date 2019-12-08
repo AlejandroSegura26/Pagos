@@ -17,7 +17,7 @@ class Alumno extends Model
     public $timestamps = false;
 
 
-    public function Hito(){
+    public function Alumno(){
         return $this -> hasMany('App\Alumno');
     }
 }

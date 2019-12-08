@@ -12,7 +12,7 @@ class PagoServiciosTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('provedor_id');
             $table->foreign('provedor_id')->references('id')->on('provedores')->onDelete('cascade');
-            $table->boolean('estado')->default(1);
+           
               });
     }
 

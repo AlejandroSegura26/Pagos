@@ -13,6 +13,8 @@ Vue.component('pagoscolegiaturas', require('./components/PagosColegiaturasCompon
 Vue.component('estadocuenta', require('./components/EstadoCuentaComponent.vue').default);
 Vue.component('rentas', require('./components/RentasComponent.vue').default);
 Vue.component('compras', require('./components/ComprasComponent.vue').default);
+Vue.component('padres', require('./components/PadresComponent.vue').default);
+Vue.component('grupos', require('./components/GruposComponent.vue').default);
 const app = new Vue({
     el: '#app',
     data: {

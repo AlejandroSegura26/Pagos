@@ -43,6 +43,8 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/alumno','AlumnoController@index');
   Route::put('/alumno/actualizar','AlumnoController@update');
   Route::post('/alumno/desactivar','AlumnoController@desactivar');
+  Route::post('/alumno/alumnoConGrupo','AlumnoController@alumnoConGrupo');
+  Route::post('/alumno/alumnoSinGrupo','AlumnoController@alumnoSinGrupo');
   
   Route::post('/provedor/registrar','ProvedorController@store');
   Route::get('/provedor','ProvedorController@index');
@@ -73,5 +75,18 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('/compra/registrar','CompraController@store');
   Route::post('/compra/desactivar','CompraController@desactivar');
   
+  Route::post('/padre/registrar','PadreController@store');
+  Route::get('/padre','PadreController@index');
+  Route::put('/padre/actualizar','PadreController@update');
+  Route::post('/padre/desactivar','PadreController@desactivar');
+  Route::post('/padre/selectPadre','PadreController@selectPadre');
+  
+  Route::post('/grupo/registrar','GrupoController@store');
+  Route::get('/grupo','GrupoController@index');
+  Route::put('/grupo/actualizar','GrupoController@update');
+  Route::post('/grupo/desactivar','GrupoController@desactivar');
+  Route::post('/grupo/selectPadre','GrupoController@selectPadre');
+  Route::post('/grupo/agregarAlumno','GrupoController@agregarAlumno');
+  Route::post('/grupo/quitarAlumno','GrupoController@quitarAlumno');
 });
 

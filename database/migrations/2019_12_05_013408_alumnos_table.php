@@ -15,6 +15,7 @@ class AlumnosTable extends Migration
             $table->string('correo_electronico',75);
             $table->string('telefono',10);
             $table->datetime('fecha_nacimiento');
+            $table->boolean('grupo')->default(1);
             $table->boolean('estado')->default(1);
         });
         

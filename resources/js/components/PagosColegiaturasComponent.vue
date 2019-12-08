@@ -193,12 +193,13 @@
                           
                         }).then(function (response) {
                             //Se llama al metodo para enlistar las categorias y se muestra un mensaje mediante sweetalert
-                         
+                          
                             swalWithBootstrapButtons.fire(
-                            '¡Pagado!',
+                            '¡Pago realizado!',
                             'El pago ha sido realizado con éxito.',
                             'success'
                             )
+                          console.log("aaaaaa "+response.data);
                            me.listarcolegiaturaes(1,'','titulo');
                         })
                         .catch(function (error) {

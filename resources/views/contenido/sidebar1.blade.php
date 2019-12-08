@@ -21,15 +21,26 @@
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Tablero</span></a>
         </li>
-                <!-- Nav Item - Usuarios -->
-        <li @click="menu=1" class="nav-item">
+               <li @click="menu=1" class="nav-item">
+          <a class="nav-link" href="#">
+            <i class="fas fa-fw fa-user"></i>
+            <span>Padres</span>
+          </a>
+        </li>
+        <li @click="menu=2" class="nav-item">
           <a class="nav-link" href="#">
             <i class="fas fa-fw fa-user"></i>
             <span>Alumnos</span>
           </a>
         </li>
+      <li @click="menu=3" class="nav-item">
+          <a class="nav-link" href="#">
+            <i class="fas fa-fw fa-user"></i>
+            <span>Grupos</span>
+          </a>
+        </li>
              <!-- Nav Item - Usuarios -->
-        <li @click="menu=2" class="nav-item">
+        <li @click="menu=4" class="nav-item">
           <a class="nav-link" href="#">
             <i class="fas fa-fw fa-user"></i>
             <span>Colegiaturas</span>
@@ -37,20 +48,20 @@
         </li>
       
             <!-- Nav Item - Usuarios -->
-        <li @click="menu=3" class="nav-item">
+        <li @click="menu=5" class="nav-item">
           <a class="nav-link" href="#">
             <i class="fas fa-fw fa-user"></i>
             <span>Pago Colegiaturas</span>
           </a>
         </li>
-              <li @click="menu=4" class="nav-item">
+              <li @click="menu=6" class="nav-item">
           <a class="nav-link" href="#">
             <i class="fas fa-fw fa-user"></i>
             <span>Compras</span>
           </a>
         </li>
              <!-- Nav Item - Usuarios -->
-        <li @click="menu=5" class="nav-item">
+        <li @click="menu=7" class="nav-item">
           <a class="nav-link" href="#">
             <i class="fas fa-fw fa-user"></i>
             <span>Rentas</span>
@@ -58,7 +69,7 @@
         </li>
  
              <!-- Nav Item - Usuarios -->
-        <li @click="menu=6" class="nav-item">
+        <li @click="menu=8" class="nav-item">
           <a class="nav-link" href="#">
             <i class="fas fa-fw fa-user"></i>
             <span>Servcios</span>
@@ -67,7 +78,7 @@
       
  
              <!-- Nav Item - Usuarios -->
-        <li @click="menu=7" class="nav-item">
+        <li @click="menu=9" class="nav-item">
           <a class="nav-link" href="#">
             <i class="fas fa-fw fa-user"></i>
             <span>Estado de cuenta</span>

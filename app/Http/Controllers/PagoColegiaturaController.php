@@ -7,6 +7,7 @@ use App\PagoColegiatura;
 use App\Alumno;
 use App\Movimiento;
 use App\Cartera;
+use App\PadreAlumno;
 class PagoColegiaturaController extends Controller
 {
       public function index(Request $request)
@@ -61,5 +62,23 @@ class PagoColegiaturaController extends Controller
         $cartera = Cartera :: findOrFail('1');
         $cartera->saldo=$cartera->saldo+$request->monto;
         $cartera->save();
+        $ap = PadreAlumno::all();
+        $idPadre=1;
+        $idHermano=0;
+		    foreach ($ap as $v) 
+				 if($v->alumno_id==$request->id)
+           $idPadre=$v->padre_id;
+			 foreach ($ap as $v) 
+				 if($v->padre_id==$idPadre&&$v->alumno_id!=$request->id)
+           $idHermano=$v->alumno_id;
+      $pc = PagoColegiatura::all();
+      $idcHermano=0;
+      foreach ($pc as $v) 
+				 if($v->alumno_id==$idHermano)
+           $idcHermano=$v->id;
+      $colegiatura = PagoColegiatura :: findOrFail($idcHermano);
+        $colegiatura->estado=1;
+        $colegiatura -> save();
+      return $idHermano;
   }
 }

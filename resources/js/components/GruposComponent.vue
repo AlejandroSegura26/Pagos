@@ -3,13 +3,13 @@
         <!-- Breadcrumb -->
         <ol class="breadcrumb col-lg-12">
             <li class="breadcrumb-item"><a href="/principal">Tablero</a></li>
-            <li class="breadcrumb-item"><a @click="menu=5" href="#">Alumnos</a></li>
+            <li class="breadcrumb-item"><a @click="menu=5" href="#">grupos</a></li>
             
         </ol>
         <div class="container-fluid">
             <div class="card">
                 <div class="card-header">
-                    <i class="fa fa-thumbtack"></i>&nbsp;&nbsp;Alumnos&nbsp;
+                    <i class="fa fa-thumbtack"></i>&nbsp;&nbsp;grupos&nbsp;
                     <button type="button" @click="abrirModal('registrar',0)" class="btn btn-secondary float-right">
                         <i class="fa fa-plus"></i>&nbsp;Nuevo
                     </button>
@@ -21,12 +21,11 @@
                             <div class="input-group">
                                 <select class="form-control col-md-3" v-model="criterio">
                                    <option value="nombre">Nombre</option>
-                                   <option value="correo_electronico">Correo electronico</option>
-                                   <option value="telefono">Telefono</option>
+                                   <option value="descripcion">Descripcion</option>
                                 </select>
-                                 <input type="text" v-model="buscar" @keyup.enter="listarAlumnos(1,buscar,criterio)" class="form-control"
+                                 <input type="text" v-model="buscar" @keyup.enter="listargrupos(1,buscar,criterio)" class="form-control"
                                     placeholder="Texto a buscar">
-                                <button type="submit" @click="listarAlumnos(1,buscar,criterio)" class="btn btn-primary"><i class="fa fa-search"></i>
+                                <button type="submit" @click="listargrupos(1,buscar,criterio)" class="btn btn-primary"><i class="fa fa-search"></i>
                                     Buscar</button>
                             </div>
                         </div>
@@ -36,36 +35,27 @@
                             <tr>
                                 <th>Opciones</th>
                                 <th>Nombre</th>
-                                <th>Correo electronico</th>
-                                <th>Telefono</th>
-                                <th>Fecha de nacimiento</th>
-                                <th>Padre</th>
-                                <th>Estado</th>
+                                <th>Descripcion</th>
+                                 
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="alumno in arrayAlumno" :key="alumno.id">
+                            <tr v-for="grupo in arraygrupo" :key="grupo.id">
                                 <td>
-                                    <template v-if="alumno.estado">
-                                      <button type="button" @click="abrirModal('actualizar',alumno,alumno.id)" class="btn btn-warning btn-sm">
+                                 
+                                      <button type="button" @click="abrirModal('actualizar',grupo,grupo.id)" class="btn btn-warning btn-sm">
                                         <i class="fas ">Editar</i>
                                     </button> &nbsp; &nbsp;
-                                        <button type="button" class="btn btn-danger btn-sm" @click="desactivarAlumno(alumno.id)">
-                                            <i class="far">Desactivar</i>
+                                        <button type="button" class="btn btn-danger btn-sm" @click="abrirModal('integrantes',grupo,grupo.id)">
+                                            <i class="far">Integrantes</i>
                                         </button>&nbsp;
-                                    </template>                                    
+                                      <button type="button" class="btn btn-info btn-sm" @click="abrirModal('agregar',grupo,grupo.id)">
+                                            <i class="far">Añadir integrantes</i>
+                                        </button>&nbsp;                          
                                 </td>
-                                <td v-text="alumno.anombre"></td>
-                                <td v-text="alumno.correo_electronico"></td>
-                                <td v-text="alumno.telefono"></td>
-                                <td v-text="alumno.fecha_nacimiento"></td>
-                                <td v-text="alumno.pnombre"></td>
-                                  <template v-if="alumno.estado">
-                                     <td  >Activo</td>
-                                   </template>     
-                                    <template v-else>
-                                            <td  >Desactivado</td>
-                                    </template>
+                                <td v-text="grupo.nombre"></td>
+                                <td v-text="grupo.descripcion"></td>
+                                
                             </tr>
                         </tbody>
                     </table>
@@ -98,65 +88,85 @@
                             <span aria-hidden="true">×</span>
                         </button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body" v-if="tipoAccion<3">
                         <form v-if="tipoAccion != 3" action="" method="post" enctype="multipart/form-data" class="form-horizontal">
-                
                             <div class="form-group row">
                                 <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
                                 <div class="col-md-9">
                                     <input type="text" v-model="nombre" class="form-control"
-                                        placeholder="Ingrese el nombre del alumno">
+                                        placeholder="Ingrese el nombre del grupo">
                                 </div>
                             </div>
                              <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">Correo electronico</label>
+                                <label class="col-md-3 form-control-label" for="text-input">Descripcion</label>
                                 <div class="col-md-9">
-                                    <input type="email" v-model="correo" class="form-control"
-                                        placeholder="Ingrese el correo electronico del alumno">
+                                    <input type="email" v-model="descripcion" class="form-control"
+                                        placeholder="Ingrese la descripcion del grupo">
                                 </div>
                             </div> 
-                           <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">Telefono</label>
-                                <div class="col-md-9">
-                                    <input type="text" :maxlength='10' v-model="telefono" class="form-control"
-                                        placeholder="Ingrese el telefono del alumno">
-                                </div>
-                            </div>              
-                            <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">Fecha de nacimiento<b>(*)</b></label>
-                                <div class="col-md-9">
-
-                                    <input type="date" v-model="fecha   " class="form-control"
-                                        placeholder="Ingrese la fecha de nacimiento del alumno "   min="<?php echo $fecha = date()?>" >
-                                </div>
-                            </div>
-                          
-                            <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">Padre</label>
-                                <div class="col-md-9">
-                                   <select class="form-control" v-model="id_padre">
-                                        <option value="0">Seleccione una opción: </option>
-                                        <option v-for="padre in arrayPadre" :key="padre.id" :value="padre.id" v-text="padre.nombre">
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div v-show="errorAlumno" class="form-group row div-error">
+                         
+                      
+                            <div v-show="errorgrupo" class="form-group row div-error">
                                 <div class="text-center text-error">
-                                    <div v-for="error in errorMostrarMsjAlumno" :key="error" v-text="error"></div>
+                                    <div v-for="error in errorMostrarMsjgrupo" :key="error" v-text="error"></div>
                                 </div>
                             </div>
                         </form>
-                   
                     </div>
-                    <div class="modal-footer">
+                    <div class="modal-body" v-if="tipoAccion>=3">
+           
+                    <table class="table table-bordered table-striped table-sm">
+                        <thead>
+                            <tr>
+                                <th>Opciones</th>
+                                <th>Nombre</th>
+                                 
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="alumno in arrayAlumno" :key="alumno.id">
+                                <td>
+                                    <template v-if="tipoAccion == 3">
+                                        <button type="button" class="btn btn-danger btn-sm" @click="quitarAlumno(alumno.id)">
+                                            <i class="far">Quitar</i>
+                                        </button>&nbsp;
+                                    </template> 
+
+                                  <template v-if="tipoAccion == 4">
+                                        <button type="button" class="btn btn-info btn-sm" @click="agregarAlumno(alumno.id)">
+                                            <i class="far">Añadir</i>
+                                        </button>&nbsp;
+                                    </template>  
+                                </td>
+                                <td v-text="alumno.anombre"></td>
+                                 
+                            </tr>
+                        </tbody>
+                    </table>
+                    <nav>
+                        <ul class="pagination">
+                            <li class="page-item" v-if="pagination.current_page > 1">
+                                <a class="page-link" href="#" @click.prevent="cambiarPagina(pagination.current_page - 1,buscar,criterio)">Ant</a>
+                            </li>
+                            <li class="page-item" v-for="page in pagesNumber" :key="page" :class="[page == isActived ? 'active' : '']">
+                                <a class="page-link" href="#" @click.prevent="cambiarPagina(page,buscar,criterio)" v-text="page"></a>
+                            </li>
+                            <li class="page-item" v-if="pagination.current_page < pagination.last_page">
+                                <a class="page-link" href="#" @click.prevent="cambiarPagina(pagination.current_page + 1,buscar,criterio)">Sig</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                  <div class="modal-footer">
                         <span><b>(*)</b>&nbsp;Campo obligatorio de ingresar</span>
                         <button type="button" class="btn btn-secondary" @click="cerrarModal()">Cerrar</button>
-                        <button type="button" v-if="tipoAccion==1" class="btn btn-success" @click="registrarAlumno()">Guardar</button>
-                        <button type="button" v-if="tipoAccion==2" class="btn btn-warning" @click="actualizarAlumno()">Actualizar</button>
+                        <button type="button" v-if="tipoAccion==1" class="btn btn-success" @click="registrargrupo()">Guardar</button>
+                        <button type="button" v-if="tipoAccion==2" class="btn btn-warning" @click="actualizargrupo()">Actualizar</button>
                         
                     </div>
                 </div>
+                  
+                   </div>
                 <!-- /.modal-content -->
             </div>
             <!-- /.modal-d Unidad IV ialog -->
@@ -171,20 +181,20 @@
         data() {
             return {
             id:0,
-            id_padre:0,
+          
             nombre:'',
-            correo:'',
-            telefono:'',
-            fecha:'',
-            arrayAlumno:[],
+            descripcion:'',
+           
+           
+            arraygrupo:[],
             modal: 0,
             tituloModal:'',
             menu:0,
             tipoAccion: 0,
-            errorAlumno: 0,
-            errorMostrarMsjAlumno:[],
+            errorgrupo: 0,
+            errorMostrarMsjgrupo:[],
               arrayPadre:[],
-         
+            arrayAlumno:[],
             pagination: 
             {
               'total': 0,
@@ -231,12 +241,33 @@
         //Métodos para mostrar, guardar, actualizar, desactivar y activar el usuario
         methods: {
             //Metodo para obtener todos los registros de la bd mediante el uso del controlador definido y en este caso, se tiene tambien la implementacion de la paginacion para ver los registros de acuerdo a lo establecido en el modelo (10 modelos por pagina) y se implementa la busqueda de registros en este metodo debido a que es el que se encarga de mostrar los datos de acuerdo al criterio elegido si es que se ha introducido un texto o mostrar todos los datos en caso de que no sea asi
-            listarAlumnos(page,buscar,criterio) {
+            listargrupos(page,buscar,criterio) {
               let me = this;
                 //Se le asigna a la ruta '/cliente' los parametros 'buscar' y 'criterio' mediante el metodo get que se utiliza para buscar un registro de acuerdo a lo que ha ingresado el usuario en el input para buscar
-                var url = '/alumno?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
+                var url = '/grupo?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
                 axios.get(url).then(function (response) {
                     //Se crea una variable respuesta que guardara los datos de la consulta mediante ajax
+                    var respuesta = response.data;
+                    //Guarda los datos en el arreglo 'arrayUsuario'
+                    me.arraygrupo = respuesta.grupo.data;
+                    //Guarda en el arreglo 'pagination' las variables necesarias para llevar a cabo estas tareas
+                    me.pagination = respuesta.pagination;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            },
+          listarAlumnosConGrupo(page,buscar,criterio) {
+              let me = this;
+           
+                 axios.post('/alumno/alumnoConGrupo',{
+                 'id':this.id,
+              
+                  
+                  
+                }).then(function (response) {
+           
+                   //Se crea una variable respuesta que guardara los datos de la consulta mediante ajax
                     var respuesta = response.data;
                     //Guarda los datos en el arreglo 'arrayUsuario'
                     me.arrayAlumno = respuesta.alumno.data;
@@ -247,69 +278,117 @@
                     console.log(error);
                 });
             },
-  
+          
+             listarAlumnoSinGrupo(page,buscar,criterio) {
+              let me = this;
+           
+                 axios.post('/alumno/alumnoSinGrupo',{
+                 'id':this.id,
+              
+                  
+                }).then(function (response) {
+           
+                   //Se crea una variable respuesta que guardara los datos de la consulta mediante ajax
+                    var respuesta = response.data;
+                    //Guarda los datos en el arreglo 'arrayUsuario'
+                    me.arrayAlumno = respuesta.alumno.data;
+                    //Guarda en el arreglo 'pagination' las variables necesarias para llevar a cabo estas tareas
+                    me.pagination = respuesta.pagination;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            },
             //Metodo para mostrar una determinada pagina y los registros asignados a ella
             cambiarPagina(page,buscar,criterio){
                 let me = this;
                 //Actualiza la pagina actual
                 me.pagination.current_page = page;
                 //Envia la peticion para visualizar los datos de esa pagina
-                me.listarAlumnos(page,buscar,criterio);
+                me.listargrupos(page,buscar,criterio);
             },
          
-            registrarAlumno() {
-                if (this.validarAlumno()) {
+            registrargrupo() {
+                if (this.validargrupo()) {
                     return;
                 }
                 let me = this;
-                 axios.post('/alumno/registrar',{
+                 axios.post('/grupo/registrar',{
                  'nombre':this.nombre,
-                 'correo':this.correo,
-                 'telefono':this.telefono,
-                 'fecha':this.fecha,
-                   'id_padre':this.id_padre
+                 'descripcion':this.descripcion,
+                  
+                  
                 }).then(function (response) {
            
                   me.cerrarModal();
-                    me.listarAlumnos(1,'','titulo');
+                    me.listargrupos(1,'','titulo');
                 })
                 .catch(function (error) {
                     console.log(error);
                 });
             },
             
-            actualizarAlumno() {
-                  if (this.validarAlumno()) {
+          agregarAlumno(id) {
+              
+                let me = this;
+                 axios.post('/grupo/agregarAlumno',{
+                 'id_grupo':this.id,
+                  'id_alumno':id
+                }).then(function (response) {
+           
+                  
+                    me.listarAlumnoSinGrupo(1,'','titulo');
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            },
+          
+          quitarAlumno(id) {
+              
+                let me = this;
+                 axios.post('/grupo/quitarAlumno',{
+                 'id_grupo':this.id,
+                  'id_alumno':id
+                }).then(function (response) {
+           
+                 
+                    me.listarAlumnosConGrupo(1,'','titulo');
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            },
+            
+            actualizargrupo() {
+                  if (this.validargrupo()) {
                     return;
                 }
                 let me = this;
                 
-                axios.put('/alumno/actualizar',{
+                axios.put('/grupo/actualizar',{
                  'nombre':this.nombre,
-                 'correo':this.correo,
-                 'telefono':this.telefono,
-                 'fecha':this.fecha,
+                 'descripcion':this.correo,
+                 
+               
                   'id':this.id
                 }).then(function (response) {
                      me.cerrarModal();
-                    me.listarAlumnos(1,'','titulo');
+                    me.listargrupos(1,'','titulo');
                 })
                 .catch(function (error) {
                     console.log(error);
                 });
             },
             
-                 validarAlumno() {
+                 validargrupo() {
               this.errorProyecto = 0;
-              this.errorMostrarMsjAlumno = [];
-              if (!this.nombre) this.errorMostrarMsjAlumno.push("Ingresar el nombre del alumno");
-              if (!this.correo) this.errorMostrarMsjAlumno.push("Ingresar el correo del alumno.");
-              if (!this.telefono) this.errorMostrarMsjAlumno.push("Ingresar el telefono del alumno ");  
-              if (!this.fecha) this.errorMostrarMsjAlumno.push("Ingresar la fecha de nacimiento del alumno ");
-              if (!this.id_padre) this.errorMostrarMsjAlumno.push("Seleccionar el padre del alumno ");  
-               
-                   if (this.errorMostrarMsjAlumno.length) this.errorAlumno = 1;
-                return this.errorAlumno;
+              this.errorMostrarMsjgrupo = [];
+              if (!this.nombre) this.errorMostrarMsjgrupo.push("Ingresar el nombre del grupo");
+              if (!this.descripcion) this.errorMostrarMsjgrupo.push("Ingresar la descripcion del grupo.");
+                
+                   if (this.errorMostrarMsjgrupo.length) this.errorgrupo = 1;
+                return this.errorgrupo;
             },
          
               abrirModal(accion, data = [],id) {
@@ -318,55 +397,60 @@
                     case 'registrar':
                     {
                         this.modal = 1;
-                        this.tituloModal = 'Registrar Alumno';
+                        this.tituloModal = 'Registrar grupo';
                         this.tipoAccion = 1;
                         this.nombre="";
-                        this.correo="";
-                        this.telefono="";
-                        this.fecha="";
+                        this.descripcion="";
+                   
                         break;
                     }
                     case 'actualizar':
                     {
                         this.modal = 1;
                         this.id=id;
-                        this.tituloModal = 'Actualizar Alumno';
+                        this.tituloModal = 'Actualizar grupo';
                         this.tipoAccion = 2;
                         this.nombre=data["nombre"];
-                        this.correo=data["correo_electronico"];
-                        this.telefono=data["telefono"];
-                        this.fecha=data["fecha_nacimiento"];
+                        this.descripcion=data["descripcion"];
+                        
+                    
+                        break;
+                      }
+                     case 'integrantes':
+                    {
+                        this.modal = 1;
+                        this.id=id;
+                        this.tituloModal = 'Integrantes del grupo grupo';
+                        this.tipoAccion = 3;
+                        this.listarAlumnosConGrupo(1,this.buscar,this.criterio);
+                        break;
+                      }
+                     case 'agregar':
+                    {
+                        this.modal = 1;
+                        this.id=id;
+                        this.tituloModal = 'Agregar integrantes al grupo';
+                        this.tipoAccion = 4;
+                        this.listarAlumnoSinGrupo(1,this.buscar,this.criterio);
                         break;
                       }
                     
                   }
-                 this.selectPadre();
+                
             },
              cerrarModal() {
                 this.modal = 0;
                 this.tituloModal = '';
                 this.nombre="";
-                this.correo="";
-                this.telefono="";
-                this.fecha="";
-                this.errorAlumno= 0;
+                this.descripcion="";
+                 this.id=0;
+                this.arrayAlumno=[];
+                this.errorgrupo= 0;
+               this.listargrupos(1,'','titulo');
             },
           
-                selectPadre(){
-               let me = this;
-                //Se le asigna la ruta al controlador que realiza la peticion al modelo para recopilar todos los roles
-                var url = '/padre/selectPadre';
-                axios.post(url).then(function (response) {
-                    //Se crea una variable respuesta que guardara los datos de la consulta mediante ajax
-                    var respuesta = response.data;
-                    //Guarda los datos en el arreglo 'arrayRol'
-                    me.arrayPadre = respuesta.padre;
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
-            },
-            desactivarAlumno(id) {
+                
+            desactivargrupo(id) {
                 const swalWithBootstrapButtons = Swal.mixin({
                     customClass: {
                         confirmButton: 'btn btn-success',
@@ -375,7 +459,7 @@
                     buttonsStyling: false
                 })
                 swalWithBootstrapButtons.fire({
-                    title: '¿Estás seguro de desactivar este alumno?     ',
+                    title: '¿Estás seguro de desactivar este grupo?     ',
                     type: 'warning',
                     showCancelButton: true,
                     confirmButtonText: 'Aceptar',
@@ -385,7 +469,7 @@
                     if (result.value) {
                         let me = this;
                         //Mediante axios se hace una peticion mediante ajax gracias a la ruta '/categoria/desactivar' para llamar al controlador y ejecutar la tarea correspondiente
-                        axios.post('/alumno/desactivar',{
+                        axios.post('/grupo/desactivar',{
                             'id':id,
                         }).then(function (response) {
                           
@@ -393,16 +477,16 @@
                              {
                               swalWithBootstrapButtons.fire(
                             '¡Desactivado!',
-                            'El alumno ha sido desactivado con éxito.',
+                            'El grupo ha sido desactivado con éxito.',
                             'success'
                             ) 
-                               me.listarAlumnos(1,'','titulo');
+                               me.listargrupos(1,'','titulo');
                              }
                           else
                             {
                                   swalWithBootstrapButtons.fire(
                           
-                            'No puede desactivar este alumno ya que tiene pagos activos.',
+                            'No puede desactivar este grupo ya que tiene pagos activos.',
                            
                             ) 
                             }
@@ -422,7 +506,7 @@
         },
          mounted() {
 
-            this.listarAlumnos(1,this.buscar,this.criterio);
+            this.listargrupos(1,this.buscar,this.criterio);
 
         }
     }
